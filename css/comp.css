@@ -39,7 +39,7 @@ body.form
 
 .comp-header
 {
-	font-family: 'Source Sans Pro';
+	font-family: 'sourcesanspro';
 	text-align: center;
 	font-size: 2em;
 	letter-spacing: .08em;
@@ -220,7 +220,7 @@ body.form
 .form-input
 {
 	background-color: transparent;
-	font-family: 'Source Sans Pro', sans-serif;
+	font-family: 'sourcesanspro', sans-serif;
 	font-size:3em;
 	vertical-align: text-bottom;
 	border-radius:8px;

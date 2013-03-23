@@ -55,6 +55,10 @@
 	src: url('fonts/proximanova.woff') format('woff');
 }
 @font-face {
+	font-family: 'sourcesanspro';
+	src: url('fonts/sourcesanspro.woff') format('woff');
+}
+@font-face {
 	font-family: 'superclarendon';
 	src: url('fonts/superclarendon.woff') format('woff');
 }

@@ -1,0 +1,60 @@
+@font-face {
+	font-family: 'adobegaramond';
+	src: url('fonts/adobegaramond.woff') format('woff');
+}
+@font-face {
+	font-family: 'arvo';
+	src: url('fonts/arvo.woff') format('woff');
+}
+@font-face {
+	font-family: 'caslon';
+	src: url('fonts/caslon.woff') format('woff');
+}
+@font-face {
+	font-family: 'dinweb-bold';
+	src: url('fonts/dinweb-bold.woff') format('woff');
+}
+@font-face {
+	font-family: 'dinweb';
+	src: url('fonts/dinweb.woff') format('woff');
+}
+@font-face {
+	font-family: 'futura-pt-bold';
+	src: url('fonts/futura-pt-bold.woff') format('woff');
+}
+@font-face {
+	font-family: 'futura-pt';
+	src: url('fonts/futura-pt.woff') format('woff');
+}
+@font-face {
+	font-family: 'giovannibook';
+	src: url('fonts/giovannibook.woff') format('woff');
+}
+@font-face {
+	font-family: 'museosans';
+	src: url('fonts/museosans.woff') format('woff');
+}
+@font-face {
+	font-family: 'proximanova-black';
+	src: url('fonts/proximanova-black.woff') format('woff');
+}
+@font-face {
+	font-family: 'proximanova-bold';
+	src: url('fonts/proximanova-bold.woff') format('woff');
+}
+@font-face {
+	font-family: 'proximanova-italic';
+	src: url('fonts/proximanova-italic.woff') format('woff');
+}
+@font-face {
+	font-family: 'proximanova-regular';
+	src: url('fonts/proximanova-regular.woff') format('woff');
+}
+@font-face {
+	font-family: 'proximanova';
+	src: url('fonts/proximanova.woff') format('woff');
+}
+@font-face {
+	font-family: 'superclarendon';
+	src: url('fonts/superclarendon.woff') format('woff');
+}

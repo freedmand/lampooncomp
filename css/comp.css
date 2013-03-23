@@ -1,0 +1,292 @@
+body.main
+{
+	margin: 0;
+	padding: 0;
+	background-color: #fffcbd;
+}
+
+body.form
+{
+/*	background-color: #fffef2;*/
+	background-color: #fffdd7;
+	margin: 0;
+	padding: 0;
+}
+
+.curl
+{
+	margin-top: 0;
+	margin-bottom: 0.5em;
+	padding: 0;
+}
+
+.intro-text
+{
+	font-size: 0.5em;
+    font-family: 'Iridium LT W01 Roman';
+    line-height: 2em;
+}
+
+.body-header
+{
+	padding-top: 0px;
+	padding-left: 0px;
+	margin-top: 0px;
+	margin-left: 0px;
+	width: 100%;
+	height: 140px;
+}
+
+.comp-header
+{
+	font-family: 'Source Sans Pro';
+	text-align: center;
+	font-size: 2em;
+	letter-spacing: .08em;
+	color: #fdeab6;
+	background-color: #4e317a;
+/*	background-color: #503a67;*/
+}
+
+.comp-link:link
+{
+	text-decoration: none;
+	color: #fdeab6;
+}
+.comp-link:visited
+{
+	text-decoration: none;
+	color: #fdeab6;
+}
+.comp-link:hover
+{
+	text-decoration:  underline;
+}
+.comp-link:active
+{
+	color: #ffd079;
+}
+
+.header-link:link
+{
+	text-decoration: none;
+	color: #5c4074;
+}
+.header-link:visited
+{
+	text-decoration: none;
+	color: #5c4074;
+}
+.header-link:hover
+{
+	text-decoration:  underline;
+}
+.header-link:active
+{
+	color: #5c4074;
+}
+
+.header-options
+{
+	position: absolute;
+	top: 13px;
+	right: 20px;
+	color: #5c4074;
+	font-family: 'arial';
+	font-size: 1.2em;
+}
+
+.divider
+{
+	color: #e3e3e3;
+	margin: 7px;
+}
+
+.separator
+{
+	display: inline-block;
+	margin-left: 0.5em;
+}
+
+.comp-sep
+{
+	display: inline-block;
+	margin-left: 0.1em;
+	margin-right: 0.1em;
+}
+
+.logo-holder
+{
+	background-color: #fffef2;
+	display: block;
+	width: 100%;
+	text-align: center;
+	margin-top: 15px;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+#logo_img
+{
+	height: 120px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#logo_big
+{
+	height: 240px;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.content
+{
+	position: relative;
+	width: 1000px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 1.5em;
+	height: 100%;
+	
+	font-family: 'museosans';
+	color: #2b2330;
+	font-size: 4em;
+	text-align: center;
+}
+
+.author-list
+{
+	font-size: 2em;
+	font-family: 'museosans';
+	color: orange;
+}
+
+.title-list
+{
+	font-size: 1.5em;
+	font-family: 'arvo';
+	color: #5a5a8b;
+}
+
+.sample-text
+{
+	width: 33em;
+	background-color: rgb(255, 255, 255);
+	padding: 0.7em;
+	color: rgb(0, 0, 139);
+	border-style: solid;
+	margin-left: 2em;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	line-height: 1.5em;
+	font-family: "giovannibook";
+	border-color: #7f7fc4;
+}
+
+.form-header
+{
+	margin-left: auto;
+	margin-right: auto;
+	height: 120px;
+	line-height: 120px;
+	font-family: 'Iridium LT W01 Roman';
+	color: #fdeab6;
+	font-size: 3em;
+	text-align: center;
+	margin-bottom: 1em;
+	background-color: #4e317a;
+	letter-spacing: 0.04em;
+}
+
+.form-table
+{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.form-label
+{
+	font-family: 'museosans';
+/*	font-weight: 900;*/
+	font-size:3em;
+	text-align: right;
+	color: #5c4074;
+}
+
+.form-input
+{
+	background-color: transparent;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size:3em;
+	vertical-align: text-bottom;
+	border-radius:8px;
+	-moz-border-radius:8px;
+	-webkit-border-radius:8px;
+	width: 600px;
+	height: 100%;
+	padding-left: 5px;
+	margin-bottom: 0px;
+	margin-left: 10px;
+	color: #424242;
+	border: 0px solid #727272;
+	border-bottom-width: 5px;
+	border-radius: 8px;
+}
+
+.form-info
+{
+	font-family: 'caslon';
+	font-size: 1.5em;
+}
+
+.form-input:hover {
+	background-color: #fffcbd;
+}
+
+.form-input:focus
+{
+	outline: none;
+	background-color: #ffc775;
+}
+
+.form-button
+{
+	margin-left: auto;
+	margin-right: auto;
+	width: 300px;
+	display: block;
+	margin-top: 1em;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+
+button
+{
+	-moz-border-radius:12px;
+	-webkit-border-radius:12px;
+	border-radius:12px;
+	border: none;
+	display:inline-block;
+	font-family:'futura-pt-bold';
+	font-size:3em;
+	padding:0.1em 0.4em;
+}
+
+.orange-button { background-color:#ffad34; color:#fefff3; }
+.orange-button:hover { background-color:#ffc46c; }
+.orange-button:active { background-color:#f6ad43; }
+
+.purple-button { background-color:#4e307a; color:#fffdca; }
+.purple-button:hover { background-color:#6c4b9c; }
+.purple-button:active { background-color:#572e94; }

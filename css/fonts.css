@@ -62,3 +62,11 @@
 	font-family: 'superclarendon';
 	src: url('fonts/superclarendon.woff') format('woff');
 }
+@font-face {
+	font-family: 'torontosubway-bold';
+	src: url('fonts/torontosubway-bold.woff') format('woff');
+}
+@font-face {
+	font-family: 'torontosubway';
+	src: url('fonts/torontosubway.woff') format('woff');
+}

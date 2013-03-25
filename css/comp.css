@@ -7,7 +7,6 @@ body.main
 
 body.form
 {
-/*	background-color: #fffef2;*/
 	background-color: #fffdd7;
 	margin: 0;
 	padding: 0;
@@ -127,6 +126,25 @@ body.form
 	height: 100%;
 }
 
+.error-msg
+{
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #fcb6b6;
+	padding-top: 20px;
+	width: 500px;
+	padding-bottom: 20px;
+	font-family: 'Source Sans Pro';
+	border-radius: 12px;
+	text-align: center;
+	font-size: 1.4em;
+	color: #cc2d2d;
+	font-weight: 600;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 1em;
+}
+
 #logo_img
 {
 	height: 120px;
@@ -193,13 +211,13 @@ body.form
 	margin-right: auto;
 	height: 120px;
 	line-height: 120px;
-	font-family: 'Iridium LT W01 Roman';
+	font-family: 'Source Sans Pro';
 	color: #fdeab6;
 	font-size: 3em;
 	text-align: center;
 	margin-bottom: 1em;
 	background-color: #4e317a;
-	letter-spacing: 0.04em;
+	letter-spacing: 0.06em;
 }
 
 .form-table
@@ -211,7 +229,6 @@ body.form
 .form-label
 {
 	font-family: 'museosans';
-/*	font-weight: 900;*/
 	font-size:3em;
 	text-align: right;
 	color: #5c4074;
@@ -220,14 +237,13 @@ body.form
 .form-input
 {
 	background-color: transparent;
-	font-family: 'sourcesanspro', sans-serif;
+	font-family: 'times', sans-serif;
 	font-size:3em;
 	vertical-align: text-bottom;
 	border-radius:8px;
 	-moz-border-radius:8px;
 	-webkit-border-radius:8px;
 	width: 600px;
-	height: 100%;
 	padding-left: 5px;
 	margin-bottom: 0px;
 	margin-left: 10px;

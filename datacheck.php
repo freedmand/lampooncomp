@@ -10,7 +10,7 @@ try
 
 	$email = $mysqli->real_escape_string($_POST["email"]);
 
-	if (!$result = $mysqli->query("SELECT email FROM users WHERE email='$email'"))
+	if (!$result = $mysqli->query("SELECT email FROM users WHERE email='$email' AND registered='1'"))
 		exit('error');
 
 	if ($result->num_rows == 0)

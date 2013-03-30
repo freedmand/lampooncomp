@@ -31,6 +31,10 @@
 	src: url('fonts/giovannibook.woff') format('woff');
 }
 @font-face {
+	font-family: 'iridium';
+	src: url('fonts/iridium.woff') format('woff');
+}
+@font-face {
 	font-family: 'museosans';
 	src: url('fonts/museosans.woff') format('woff');
 }
@@ -53,6 +57,10 @@
 @font-face {
 	font-family: 'proximanova';
 	src: url('fonts/proximanova.woff') format('woff');
+}
+@font-face {
+	font-family: 'sourcesanspro-semibold';
+	src: url('fonts/sourcesanspro-semibold.woff') format('woff');
 }
 @font-face {
 	font-family: 'sourcesanspro';

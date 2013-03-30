@@ -66,39 +66,147 @@ function verifyCode($code)
 	return strcmp($suffix, md5($prefix . "_lampooncastle_comp_harv")) == 0;
 }
 
+function sendEmail($from, $from_name, $to, $subject, $html, $text)
+{
+	$from = "$from_name <$from>";
+	$mime_boundary = 'Multipart_Boundary_x'.md5(time()).'x';
+
+	$headers  = "MIME-Version: 1.0\r\n";
+	$headers .= "Content-Type: multipart/alternative; boundary=\"$mime_boundary\"\r\n";
+	$headers .= "Content-Transfer-Encoding: 7bit\r\n";
+	$replyto .= "reply-to: $from";
+
+	$body = "This is a multi-part message in mime format.\n\n";
+
+	# Add in plain text version
+	$body.= "--$mime_boundary\n";
+	$body.= "Content-Type: text/plain; charset=\"charset=us-ascii\"\n";
+	$body.= "Content-Transfer-Encoding: 7bit\n\n";
+	$body.= $text;
+	$body.= "\n\n";
+
+	# Add in HTML version
+	$body.= "--$mime_boundary\n";
+	$body.= "Content-Type: text/html; charset=\"UTF-8\"\n";
+	$body.= "Content-Transfer-Encoding: 7bit\n\n";
+	$body.= $html;
+	$body.= "\n\n";
+	
+	# End email
+	$body.= "--$mime_boundary--\n";
+
+	# Finish off headers
+	$headers .= "From: $from\r\n";
+	$headers .= "X-Sender-IP: $_SERVER[SERVER_ADDR]\r\n";
+	$headers .= 'Date: '.date('n/d/Y g:i A')."\r\n";
+	$replyto .= "reply-to: $from";
+	# Mail it out
+	return mail($to, $subject, $body, $headers);
+}
+
 try
 {
+	$type = $_POST["type"];
+	
 	$mysqli = new mysqli("localhost", "root", "root", "lampooncomp");
 	if (mysqli_connect_errno())
 		exit('error');
 	
-	$name = $mysqli->real_escape_string($_POST["fname"]);
-	$email = $mysqli->real_escape_string($_POST["femail"]);
-	$room = $mysqli->real_escape_string($_POST["froom"]);
-	$year = $mysqli->real_escape_string($_POST["fyear"]);
+	if ($type === 'register')
+	{
+		$name = $mysqli->real_escape_string($_POST["name"]);
+		$email = $mysqli->real_escape_string($_POST["email"]);
+		$room = $mysqli->real_escape_string($_POST["room"]);
+		$year = $mysqli->real_escape_string($_POST["year"]);
 
-	if (!$result = $mysqli->query("INSERT INTO users (id,id_incr,verify_id,name,email,passwordhash,room,year,boards) VALUES(NULL,DEFAULT,NULL,'$name','$email',NULL,'$room','$year',NULL)"))
-		exit('error');
-	$id_incr = $mysqli->insert_id;
-
-	$id = aura($id_incr, $width, $height, $k1_id, $k2_id, $k3_id, $q_id);
+		if (!$result = $mysqli->query("REPLACE INTO users (id,id_incr,name,email,passwordhash,room,year,board,registered) VALUES(NULL,DEFAULT,'$name','$email',NULL,'$room','$year',NULL,'0')"))
+			exit('error');
+		$id_incr = $mysqli->insert_id;
+		
+		$id = aura($id_incr, $width, $height, $k1_id, $k2_id, $k3_id, $q_id);
+		
+		if (!$result = $mysqli->query("UPDATE users SET id='$id' WHERE id_incr='$id_incr'"))
+			exit('error');
 	
-	if (!$result = $mysqli->query("UPDATE users SET id='$id' WHERE id_incr='$id_incr'"))
-		exit('error');
+		$verification = verificationCode($id);
 	
-	$verification = verificationCode($id);
+		// send verification email
 	
-	// send verification email
-	$link = "http://freedmand.com/lampooncomp/verify.php?v=" . $verification;
-	$message = "Welcome to the Harvard Lampoon comp. Please click on the following link to verify your email address:<br><a href="$link">$link</a><br>Alternatively, enter in the following verification code: $verification";
-	$from = "comp@freedmand.com";
-	$headers = "From:" . $from;
-	mail($email,"[LampoonComp] Please verify your email",$message,$headers);
-	echo "Mail Sent.";
+		$link = "http://freedmand.com/lampooncomp/verify.php?v=" . $verification;
+		$html_msg = "<h1>Welcome to the Harvard Lampoon comp.</h1>Please click on the following link to verify your email address:<br><a href=\"$link\">$link</a><br><br>Alternatively, copy and paste the following verification code: $verification";
+		$text_msg = "Welcome to the Harvard Lampoon comp. Please visit the following link in your browser to verify your email address:\r\n$link\r\n\r\nAlternatively, enter in the following verification code: $verification";
 	
-	strlen(dechex(2500000000))
-	str_pad(dechex(2500000000), 10, "0", STR_PAD_LEFT)
-	hexdec('009502f900')
+		exit(sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Please verify your email", $html_msg, $text_msg));
+		if (sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Please verify your email", $html_msg, $text_msg))
+			exit("Mail Sent.");
+		else
+			exit('error');
+	}
+	else if ($type === 'resend')
+	{
+		$email = $mysqli->real_escape_string($_POST["email"]);
+		
+		if (!$result = $mysqli->query("SELECT id FROM users WHERE email='$email' AND registered='0'"))
+			exit('error');
+		if ($result->num_rows != 1)
+			exit('error');
+		$row=$result->fetch_assoc();
+		$id = $row["id"];
+		
+		$verification = verificationCode($id);
+		
+		// send verification email
+	
+		$link = "http://freedmand.com/lampooncomp/verify.php?v=" . $verification;
+		$html_msg = "<h1>Welcome to the Harvard Lampoon comp.</h1>Please click on the following link to verify your email address:<br><a href=\"$link\">$link</a><br><br>Alternatively, copy and paste the following verification code: $verification";
+		$text_msg = "Welcome to the Harvard Lampoon comp. Please visit the following link in your browser to verify your email address:\r\n$link\r\n\r\nAlternatively, enter in the following verification code: $verification";
+	
+		exit(sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Please verify your email", $html_msg, $text_msg));
+		if (sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Please verify your email", $html_msg, $text_msg))
+			exit("Mail Sent.");
+		else
+			exit('error');
+	}
+	else if ($type === 'validate')
+	{
+		$email = $mysqli->real_escape_string($_POST["email"]);
+		$code = $mysqli->real_escape_string($_POST["validation"]);
+		
+		if (!$result = $mysqli->query("SELECT id FROM users WHERE email='$email' AND registered='0'"))
+			exit('error');
+		if ($result->num_rows != 1)
+			exit('error');
+		$row=$result->fetch_assoc();
+		$id = $row["id"];
+		
+		$verification = verificationCode($id);
+		if ($code === $verification)
+			exit('true');
+		exit('false');
+	}
+	else if ($type === 'finish')
+	{
+		$board = $mysqli->real_escape_string($_POST["board"]);
+		$email = $mysqli->real_escape_string($_POST["email"]);
+		$code = $mysqli->real_escape_string($_POST["validation"]);
+		
+		if (!$result = $mysqli->query("SELECT id FROM users WHERE email='$email' AND registered='0'"))
+			exit('error');
+		if ($result->num_rows != 1)
+			exit('error');
+		$row=$result->fetch_assoc();
+		$id = $row["id"];
+		$verification = verificationCode($id);
+		
+		if ($code !== $verification)
+			exit('verification error');
+		
+		$password = md5($mysqli->real_escape_string($_POST["password"]));
+		
+		if (!$result = $mysqli->query("UPDATE users SET passwordhash='$password', board='$board', registered='1'  WHERE email='$email'"))
+			exit('error');
+		exit('success');
+	}
 }
 catch (Exception $e)
 {

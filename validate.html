@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Validate email</title>
+	<link rel="stylesheet" type="text/css" href="css/comp.css">
+	<link rel="stylesheet" type="text/css" href="css/fonts.css">
+	
+	
+	<script src="js/jquery-1.8.3.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/register.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+</head>
+<body class="form">
+	<div class="form-header">
+		Verify your email
+	</div>
+	<div id="msg" class="error-msg" style="display: none;"></div>
+	
+	<div class="notify-msg">
+		Please follow the link we&rsquo;ve sent you,<br>or copy and paste the validation code,<br>or click here to have the email <a href="#" onclick="resendEmail(); return false;">resent</a>.
+	</div>
+	<!-- <div>We have sent you email verification</div>
+	<div class="notify-msg">
+		Please follow the link in the email,<br>or copy and paste the validation code,<br>or click here to have the email <a href="validate.php">resent</a>.
+	</div> -->
+	<!-- <a href="validate.php" style="display: block; text-align: center; font-size: 1.5em; color: purple; font-family: arial; margin-bottom: 30px;">(Resend email)</a> -->
+	<table id="validation_table" class="form-table">
+		<col align="right">
+		<col align="left">
+		<col>
+		<tr>
+			<td class="form-label" style="width: 300px;">Validation:</td>
+			<td>
+				<input class="form-input" type="text" name="fvalidation">
+			</td><td style="width: 300px;"></td>
+		</tr>
+	</table>
+	<div style="width: 100%"><button type="button" class="form-button purple-button" onclick="validate();">Continue</button></div>
+</body>
+</html>

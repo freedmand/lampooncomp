@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="css/comp.css">
+	<link rel="stylesheet" type="text/css" href="css/fonts.css">
+	
+	<script src="js/jquery-1.8.3.js"></script>
+	<script src="js/jquery-ui.js"></script>
+	<script src="js/register.js"></script>
+	<script src="js/jquery.cookie.js"></script>
+</head>
+<body class="form">
+	<div class="form-header">
+		Sign in below
+	</div>
+	<div id="msg" class="error-msg" style="display: none;"></div>
+	<table id="login_table" class="form-table">
+		<col align="right">
+		<col align="left">
+		<col>
+		<tr>
+			<td class="form-label" style="width: 300px;">Email:</td>
+			<td>
+				<input class="form-input" type="text" name="femail">
+			</td><td style="width: 300px;"></td>
+		</tr>
+		<tr>
+			<td class="form-label">Password:</td>
+			<td>
+				<input class="form-input" type="password" name="fpassword">
+			</td><td></td>
+		</tr>
+	</table>
+	<div style="width: 100%"><button type="button" class="form-button purple-button" onclick="login();">Login</button></div>
+</body>
+</html>

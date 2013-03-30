@@ -9,44 +9,42 @@
 	<script src="js/jquery-1.8.3.js"></script>
 	<script src="js/jquery-ui.js"></script>
 	<script src="js/register.js"></script>
+	<script src="js/jquery.cookie.js"></script>
 </head>
 <body class="form">
 	<div class="form-header">
 		Fill in the information below
 	</div>
-	<form id="submitForm" action="test.php" method="post">
-		<!-- $(".error-msg").slideDown(500) -->
-		<div class="error-msg" style="display: none;"></div>
-		<table class="form-table">
-			<col align="right">
-			<col align="left">
-			<col>
-			<tr>
-				<td class="form-label" style="width: 300px;">Name:</td>
-				<td>
-					<input class="form-input" type="text" name="fname">
-				</td><td style="width: 300px;"></td>
-			</tr>
-			<tr>
-				<td class="form-label">Email:</td>
-				<td>
-					<input class="form-input" type="text" name="femail">
-				</td><td></td>
-			</tr>
-			<tr>
-				<td class="form-label">Room:</td>
-				<td>
-					<input class="form-input" type="text" name="froom">
-				</td><td></td>
-			</tr>
-			<tr>
-				<td class="form-label">Year:</td>
-				<td>
-					<input class="form-input" type="text" name="fyear">
-				</td><td></td>
-			</tr>
-		</table>
-		<div style="width: 100%"><button type="button" class="form-button purple-button" onclick="submitCheck();">Sign up</button></div>
-	</form>
+	<div id="msg" class="error-msg" style="display: none;"></div>
+	<table id="register_table" class="form-table">
+		<col align="right">
+		<col align="left">
+		<col>
+		<tr>
+			<td class="form-label" style="width: 300px;">Name:</td>
+			<td>
+				<input class="form-input" type="text" name="fname">
+			</td><td style="width: 300px;"></td>
+		</tr>
+		<tr>
+			<td class="form-label">Email:</td>
+			<td>
+				<input class="form-input" type="text" name="femail">
+			</td><td></td>
+		</tr>
+		<tr>
+			<td class="form-label">Room:</td>
+			<td>
+				<input class="form-input" type="text" name="froom">
+			</td><td></td>
+		</tr>
+		<tr>
+			<td class="form-label">Year:</td>
+			<td>
+				<input class="form-input" type="text" name="fyear">
+			</td><td></td>
+		</tr>
+	</table>
+	<div style="width: 100%"><button type="button" class="form-button purple-button" onclick="submitCheck();">Sign up</button></div>
 </body>
 </html>

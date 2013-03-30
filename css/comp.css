@@ -3,6 +3,7 @@ body.main
 	margin: 0;
 	padding: 0;
 	background-color: #fffcbd;
+	margin-bottom: 50px;
 }
 
 body.form
@@ -10,6 +11,7 @@ body.form
 	background-color: #fffdd7;
 	margin: 0;
 	padding: 0;
+	margin-bottom: 50px;
 }
 
 .curl
@@ -22,7 +24,7 @@ body.form
 .intro-text
 {
 	font-size: 0.5em;
-    font-family: 'Iridium LT W01 Roman';
+    font-family: 'iridium';
     line-height: 2em;
 }
 
@@ -134,11 +136,30 @@ body.form
 	padding-top: 20px;
 	width: 500px;
 	padding-bottom: 20px;
-	font-family: 'Source Sans Pro';
+	font-family: 'sourcesanspro-semibold';
 	border-radius: 12px;
 	text-align: center;
 	font-size: 1.4em;
 	color: #cc2d2d;
+	font-weight: 600;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 1em;
+}
+
+.notify-msg
+{
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #b6a3d3;
+	padding-top: 20px;
+	width: 500px;
+	padding-bottom: 20px;
+	font-family: 'sourcesanspro-semibold';
+	border-radius: 12px;
+	text-align: center;
+	font-size: 1.4em;
+	color: #5f2dad;
 	font-weight: 600;
 	padding-left: 10px;
 	padding-right: 10px;
@@ -211,7 +232,7 @@ body.form
 	margin-right: auto;
 	height: 120px;
 	line-height: 120px;
-	font-family: 'Source Sans Pro';
+	font-family: 'sourcesanspro';
 	color: #fdeab6;
 	font-size: 3em;
 	text-align: center;
@@ -269,6 +290,18 @@ body.form
 	background-color: #ffc775;
 }
 
+.board-div
+{
+	text-align: center;
+	margin-top: 20px;
+}
+
+.board-button
+{
+	width: 250px;
+	margin: 10px;
+}
+
 .form-button
 {
 	margin-left: auto;
@@ -306,3 +339,7 @@ button
 .purple-button { background-color:#4e307a; color:#fffdca; }
 .purple-button:hover { background-color:#6c4b9c; }
 .purple-button:active { background-color:#572e94; }
+
+.red-button { background-color:#963031; color:#fffdca; }
+.red-button:hover { background-color:#a53336; }
+.red-button:active { background-color:#7a3030; }

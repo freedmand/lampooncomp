@@ -135,8 +135,7 @@ try
 		$link = "http://freedmand.com/lampooncomp/verify.php?v=" . $verification;
 		$html_msg = "<h1>Welcome to the Harvard Lampoon comp.</h1>Please click on the following link to verify your email address:<br><a href=\"$link\">$link</a><br><br>Alternatively, copy and paste the following verification code: $verification";
 		$text_msg = "Welcome to the Harvard Lampoon comp. Please visit the following link in your browser to verify your email address:\r\n$link\r\n\r\nAlternatively, enter in the following verification code: $verification";
-	
-		exit(sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Please verify your email", $html_msg, $text_msg));
+		
 		if (sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Please verify your email", $html_msg, $text_msg))
 			exit("Mail Sent.");
 		else
@@ -160,8 +159,7 @@ try
 		$link = "http://freedmand.com/lampooncomp/verify.php?v=" . $verification;
 		$html_msg = "<h1>Welcome to the Harvard Lampoon comp.</h1>Please click on the following link to verify your email address:<br><a href=\"$link\">$link</a><br><br>Alternatively, copy and paste the following verification code: $verification";
 		$text_msg = "Welcome to the Harvard Lampoon comp. Please visit the following link in your browser to verify your email address:\r\n$link\r\n\r\nAlternatively, enter in the following verification code: $verification";
-	
-		exit(sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Please verify your email", $html_msg, $text_msg));
+		
 		if (sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Please verify your email", $html_msg, $text_msg))
 			exit("Mail Sent.");
 		else
@@ -206,6 +204,33 @@ try
 		if (!$result = $mysqli->query("UPDATE users SET passwordhash='$password', board='$board', registered='1'  WHERE email='$email'"))
 			exit('error');
 		exit('success');
+	}
+	else if ($type === 'reset')
+	{
+		$mysqli = new mysqli("localhost", "root", "root", "lampooncomp");
+		if (mysqli_connect_errno())
+			exit('error');
+
+		$email = $mysqli->real_escape_string($_POST["email"]);
+
+		$newpass = substr(md5(microtime()),rand(0,26),8);
+		$newpasshash = md5($newpass);
+
+		if (!$result = $mysqli->query("UPDATE users SET passwordhash='$newpasshash' WHERE email='$email' AND registered='1'"))
+			exit('error');
+
+		if ($mysqli->affected_rows == 0)
+			exit('false');
+		
+		// send reset email
+		
+		$html_msg = "<h1>We have reset your password.</h1>Your password is now $newpass. Please login with your new password and then change it under the account management page.";
+		$text_msg = "We have reset your password.<br><br>Your password is now $newpass. Please login with your new password and then change it under the account management page.";
+		
+		if (sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Your password has been reset", $html_msg, $text_msg))
+			exit("Mail Sent.");
+		else
+			exit('error');
 	}
 }
 catch (Exception $e)

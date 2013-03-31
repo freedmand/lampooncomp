@@ -13,6 +13,7 @@ function showError(msg)
 
 function login()
 {
+	$("#reset_msg").slideUp(ANIMATION_DURATION);
 	var email = $('[name="femail"]').val();
 	if (email.length == 0 || !email.match(EMAIL_REGEX))
 	{
@@ -37,13 +38,46 @@ function loginValidate(data)
 	}
 	else if (data == 'false')
 	{
-		showError('Invalid email or password. Reset password?');
+		showError('Invalid email or password. <a href="#" onclick="resetPassword(); return false;">Reset password?</a>');
 		return;
 	}
 	else if (data == 'true')
 	{
+		alert('success');
 		// set cookie, go to portfolio
 	}
+}
+
+function resetPassword()
+{
+	var email = $('[name="femail"]').val();
+	if (email.length == 0 || !email.match(EMAIL_REGEX))
+	{
+		showError('Please submit a valid email address to <a href="#" onclick="resetPassword(); return false;">reset password</a>.');
+		return;
+	}
+	
+	$.post('validate.php', {
+		'email': $('[name="femail"]').val(),
+		'type': 'reset'
+	}).done(showReset);
+}
+
+function showReset(data)
+{
+	if (data == 'false')
+	{
+		showError('No account exists with that email.<br>Would you like to <a href="register.html">register?</a>');
+		return;
+	}
+	else if (data == 'error')
+	{
+		showError('An error occurred. <a href="#" onclick="resetPassword(); return false;">Please try again.</a>');
+		return;
+	}
+	
+	$('#msg').slideUp(ANIMATION_DURATION);
+	$("#reset_msg").slideDown(ANIMATION_DURATION);
 }
 
 function submitCheck()

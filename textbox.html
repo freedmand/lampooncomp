@@ -10,18 +10,17 @@
 	<script src="js/jquery-ui.js"></script>
 	<script src="js/rangy-core.js"></script>
 	<script src="js/rangy-cssclassapplier.js"></script>
+	<script src="js/jquery.hotkeys.js"></script>
 	
 	<script type="text/javascript">
 		var boldApplier, italicApplier, underlineApplier, commentApplier;
-
+		
 		$(document).delegate('.paper', 'keydown', function(e) {
-			console.log('keydown');
+			console.log(event.metaKey);
 			var keyCode = e.keyCode || e.which;
-
+			
 			if (keyCode == 9)
 			{
-				console.log('tab');
-				
 				e.preventDefault();
 				var sel = rangy.getSelection();
 				var range = sel.getRangeAt(0);
@@ -33,6 +32,13 @@
 				sel.removeAllRanges();
 				sel.addRange(range);
 			}
+			
+			if ((event.metaKey || event.ctrlKey) && String.fromCharCode(keyCode).toUpperCase() == 'B')
+				bold();
+			else if ((event.metaKey || event.ctrlKey) && String.fromCharCode(keyCode).toUpperCase() == 'I')
+				italic();
+			else if ((event.metaKey || event.ctrlKey) && String.fromCharCode(keyCode).toUpperCase() == 'U')
+				underline();
 		});
 		
 		window.onload = function()
@@ -73,6 +79,7 @@
 		
 		function bold()
 		{
+			console.log('yea');
 			document.execCommand('bold');
 			// boldApplier.toggleSelection();
 			updateButtons();
@@ -122,8 +129,11 @@
 		</tr>
 		<tr>
 			<td>
-				<input type="text" class="paper-title" placeholder="Click to edit title...">
-				<div class="paper" contenteditable="true" onblur="disableButtons();" onchange="updateButtons();" onfocus="updateButtons();" onselect="updateButtons();" onkeydown="updateButtons();" onkeyup="updateButtons();" onmousedown="updateButtons();" onmouseup="updateButtons();" style="display: inline-block; text-align: left;"></div>
+				<div class="paper-holder paper-text">
+					<div class="top-bar"></div>
+					<input type="text" class="paper-title paper-text" placeholder="Click to edit title...">
+						<div class="paper paper-text" contenteditable="true" onblur="disableButtons();" onchange="updateButtons();" onfocus="updateButtons();" onselect="updateButtons();" onkeydown="updateButtons();" onkeyup="updateButtons();" onmousedown="updateButtons();" onmouseup="updateButtons();"></div>
+				</div>
 			</td>
 			<td>
 				<!-- <div id="commentpane-expand" style="width: 0; overflow: hidden;"> -->

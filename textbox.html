@@ -41,6 +41,34 @@
 				underline();
 		});
 		
+		$('#file-upload').live('change', function()
+		{
+			console.log('change');
+			var file = this.files[0];
+			var xhr = new XMLHttpRequest();
+			xhr.file = file;
+			xhr.addEventListener('progress', function(e) {
+				var done = e.position || e.loaded, total = e.totalSize || e.total;
+				console.log('xhr progress: ' + (Math.floor(done/total*1000)/10) + '%');
+			}, false);
+			if (xhr.upload) {
+				xhr.upload.onprogress = function(e) {
+					var done = e.position || e.loaded, total = e.totalSize || e.total;
+					console.log('xhr.upload progress: ' + done + ' / ' + total + ' = ' + (Math.floor(done/total*1000)/10) + '%');
+				};
+			}
+			xhr.onreadystatechange = function(e) {
+				if ( 4 == this.readyState ) {
+					console.log(['xhr upload complete', e]);
+				}
+				// console.log(e.target.responseText);
+				$('.paper').html(e.target.responseText);
+			};
+			xhr.open('post', 'upload.php', true);
+			xhr.setRequestHeader("X-File-Name", file.name);
+			xhr.send(file);
+		});//, false);
+		
 		window.onload = function()
 		{
 			rangy.init();
@@ -115,34 +143,37 @@
 </head>
 <body class="main">
 
+	<form enctype="multipart/form-data" action="upload.php" method="POST">
 	
-	<table style="margin-left: auto; margin-right: auto; table-layout: fixed;">
-		<tr>
-			<td class="panel">
-				<button id="bold-button" class="formatting-button inactive-button" style="background-image: url('img/bold.png');" onclick="bold();"></button>
-				<button id="italic-button" class="formatting-button inactive-button" style="background-image: url('img/italic.png');" onclick="italic();"></button>
-				<button id="underline-button" class="formatting-button inactive-button" style="background-image: url('img/underline.png');" onclick="underline();"></button>
-				<button id="comment-button" class="formatting-button inactive-button" style="background-image: url('img/comment.png');" onclick="comment();"></button>
-				<button id="comment-button" class="formatting-button inactive-button" style="background-image: url('img/word.png');" onclick="comment();"></button>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td>
-				<div class="paper-holder paper-text">
-					<div class="top-bar"></div>
-					<input type="text" class="paper-title paper-text" placeholder="Click to edit title...">
-						<div class="paper paper-text" contenteditable="true" onblur="disableButtons();" onchange="updateButtons();" onfocus="updateButtons();" onselect="updateButtons();" onkeydown="updateButtons();" onkeyup="updateButtons();" onmousedown="updateButtons();" onmouseup="updateButtons();"></div>
-				</div>
-			</td>
-			<td>
-				<!-- <div id="commentpane-expand" style="width: 0; overflow: hidden;"> -->
-					<div class="comment-pane" style="display: none;">
-						<div class='pane-header'>Feedback</div>
+		<table style="margin-left: auto; margin-right: auto; table-layout: fixed;">
+			<tr>
+				<td class="panel">
+					<button id="bold-button" class="formatting-button inactive-button" style="background-image: url('img/bold.png');" onclick="bold();"></button>
+					<button id="italic-button" class="formatting-button inactive-button" style="background-image: url('img/italic.png');" onclick="italic();"></button>
+					<button id="underline-button" class="formatting-button inactive-button" style="background-image: url('img/underline.png');" onclick="underline();"></button>
+					<button id="comment-button" class="formatting-button inactive-button" style="background-image: url('img/comment.png');" onclick="comment();"></button>
+					<button id="word-button" class="formatting-button inactive-button" style="background-image: url('img/word.png');" onclick="$('#file-upload').trigger('click'); return false;"></button>
+					<input type="file" id="file-upload" name="file" style="display:none" />
+				</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td>
+					<div class="paper-holder paper-text">
+						<div class="top-bar"></div>
+						<input type="text" class="paper-title" placeholder="Click to edit title...">
+							<div class="paper" contenteditable="true" onblur="disableButtons();" onchange="updateButtons();" onfocus="updateButtons();" onselect="updateButtons();" onkeydown="updateButtons();" onkeyup="updateButtons();" onmousedown="updateButtons();" onmouseup="updateButtons();"></div>
 					</div>
-				<!-- </div> -->
-			</td>
-		</tr>
-	</table>
+				</td>
+				<td>
+					<!-- <div id="commentpane-expand" style="width: 0; overflow: hidden;"> -->
+						<div class="comment-pane" style="display: none;">
+							<div class='pane-header'>Feedback</div>
+						</div>
+					<!-- </div> -->
+				</td>
+			</tr>
+		</table>
+	 </form>
 </body>
 </html>

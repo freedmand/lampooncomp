@@ -339,9 +339,10 @@ button
 
 .paper-text
 {
-	font-family: 'times', 'Times New Roman', sans-serif;
-	font-size: 1.2em;
-	line-height: 1.5;
+	font: 23px/1.5 'times', 'Times New Roman', sans-serif !important;
+/*	font-family: 'times', 'Times New Roman', sans-serif !important;
+	font-size: 1.44em !important;
+	line-height: 1.5 !important;*/
 }
 
 .paper-holder
@@ -360,6 +361,7 @@ button
 	overflow: scroll;
 	background-color: white;
 	margin-left: 20px;
+	text-align:center;
 }
 
 .paper
@@ -373,7 +375,7 @@ button
 	margin-left: auto;
 	margin-right: auto;
 	background-color: white;
-	white-space: pre;
+	white-space: pre-wrap;
 	padding-bottom: 5em;
 }
 
@@ -505,3 +507,5 @@ button
 .red-button { background-color:#963031; color:#fffdca; }
 .red-button:hover { background-color:#a53336; }
 .red-button:active { background-color:#7a3030; }
+
+input, select, textarea, button{ font-family:inherit; font-size: inherit; line-height: inherit; }

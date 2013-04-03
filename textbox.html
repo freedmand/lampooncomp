@@ -15,6 +15,19 @@
 	<script type="text/javascript">
 		var boldApplier, italicApplier, underlineApplier, commentApplier;
 		
+		function insertText(text)
+		{
+			var sel = rangy.getSelection();
+			var range = sel.getRangeAt(0);
+			range.deleteContents();
+			var node = document.createTextNode(text);
+			range.insertNode(node);
+			range.setStartAfter(node);
+			range.collapse(true);
+			sel.removeAllRanges();
+			sel.addRange(range);
+		}
+		
 		$(document).delegate('.paper', 'keydown', function(e) {
 			console.log(event.metaKey);
 			var keyCode = e.keyCode || e.which;
@@ -22,15 +35,7 @@
 			if (keyCode == 9)
 			{
 				e.preventDefault();
-				var sel = rangy.getSelection();
-				var range = sel.getRangeAt(0);
-				range.deleteContents();
-				var node = document.createTextNode("\t");
-				range.insertNode(node);
-				range.setStartAfter(node);
-				range.collapse(true);
-				sel.removeAllRanges();
-				sel.addRange(range);
+				insertText("\t");
 			}
 			
 			if ((event.metaKey || event.ctrlKey) && String.fromCharCode(keyCode).toUpperCase() == 'B')
@@ -72,11 +77,7 @@
 		window.onload = function()
 		{
 			rangy.init();
-			// boldApplier = rangy.createCssClassApplier("", {normalize: true, elementTagName: 'b'});
-			// italicApplier = rangy.createCssClassApplier("text-italic", {normalize: true, elementTagName: 'i'});
-			// underlineApplier = rangy.createCssClassApplier("text-underline", {normalize: true, elementTagName: 'u'});
 			commentApplier = rangy.createCssClassApplier("comment-inline", {normalize: true, elementTagName: 'span', elementProperties: {'onclick': function () {alert("hell yeah!"); return false;}}});
-			// $(document).on('selectionchange', updateButtons());
 		};
 		
 		function updateButtons()
@@ -109,22 +110,17 @@
 		{
 			console.log('yea');
 			document.execCommand('bold');
-			// boldApplier.toggleSelection();
 			updateButtons();
 		}
 		function italic()
 		{
-			// italicApplier.toggleSelection();
 			document.execCommand("italic");
 			updateButtons();
-			// document.execCommand('italic',false,null);
 		}
 		function underline()
 		{
-			// underlineApplier.toggleSelection();
 			document.execCommand("underline");
 			updateButtons();
-			// document.execCommand('underline',false,null);
 		}
 		function comment()
 		{
@@ -138,6 +134,108 @@
 			div = $(div);
 			div.html(text);
 			$('.comment-pane').append(div);
+		}
+		
+		function pasteHandle(e)
+		{
+			if (e && e.clipboardData && e.clipboardData.getData)
+			{
+				if (/text\/plain/.test(e.clipboardData.types))
+					$('.paper').html(parseHtml(e.clipboardData.getData('text/html')));//insertText(parseHtml(e.clipboardData.getData('text/html')));
+			}
+		}
+		
+		function elementStyle(elem)
+		{
+			if (!elem || !elem.tagName)
+				return { "bold" : false, "italic" : false, "underline" : false };
+			var tagName = elem.tagName.toUpperCase();
+			var boldStyle = ('' + $(elem).css('font-weight')).toLowerCase();
+			var bold = (tagName == 'B' || tagName == 'STRONG') || (boldStyle == 'bold' || boldStyle == 'bolder' || boldStyle == '500' || boldStyle == '600' || boldStyle == '700' || boldStyle == '800' || boldStyle == '800' || boldStyle == '900');
+			var italicStyle = $(elem).css('font-style').toLowerCase();
+			var italic = (tagName == 'I' || tagName == 'EM') || (italicStyle == 'italic' || italicStyle == 'oblique');
+			var underlineStyle = $(elem).css('text-decoration').toLowerCase();
+			var underline = (tagName == 'U') || (underlineStyle == 'underline');
+			return { "bold" : bold, "italic" : italic, "underline" : underline };
+		}
+		
+		function mergeStyles(s1, s2)
+		{
+			return { "bold" : s1.bold || s2.bold, "italic" : s1.italic || s2.italic, "underline" : s1.underline || s2.underline };
+		}
+		
+		function parseHtml(html)
+		{
+			html = '<div>' + html.replace('<body', '<body><div id="lampoon_body"').replace('</body>','</div></body>') + '</div>';
+			var parsed = $('#lampoon_body',$(html));
+			if (parsed.length == 0)
+				parsed = $(html);
+			
+			var output_html = "";
+			
+			// var output = $('</div>');
+			for (var i = 0; i < parsed.length; i++)
+			{
+				var style = elementStyle(parsed[i]);
+				recurse(parsed[i], style);
+			}
+			
+			function recurse(elem, style) {
+				if (elem.nodeType == 8)
+					return;
+				if (elem.tagName)
+				{
+					var tagName = elem.tagName.toUpperCase();
+					if (tagName == 'BR')
+						output_html += "<br>";
+					if (tagName == 'META' || tagName == 'STYLE' || tagName == 'LINK')
+						return;
+				}
+				else
+				{
+					var text = elem.data;
+					output_html += text.replace(/\n/g, ' ').replace(/ +/g, ' ');
+					var parentTag = elem.parentNode.tagName.toUpperCase();
+					if (parentTag == 'DIV' || parentTag == 'P')
+						output_html += '<br>'
+				}
+				// var text = $(elem).clone().children().remove().end().text();
+				// console.log("b: " + style.bold + ", i: " + style.italic + ", u: " + style.underline + ', ' + text);
+				for (var i = 0; i < $(elem).contents().length; i++)
+				{
+					var child = $(elem).contents()[i];
+					var newStyle = mergeStyles(style, elementStyle(child));
+					output_html += (newStyle.bold ? "<b>" : "") + (newStyle.italic ? "<i>" : "") + (newStyle.underline ? "<u>" : "");
+					recurse(child, newStyle);
+					output_html += (newStyle.bold ? "</b>" : "") + (newStyle.italic ? "</i>" : "") + (newStyle.underline ? "</u>" : "");
+				}
+				
+				// return elem;
+				
+				// $.each($(elem).children(), recurse);
+			}
+			
+			console.log(html);
+			console.log(output_html);
+			// console.log($(parsed));
+			
+			return output_html;
+			
+			// $("#container").html(list);
+			
+			// $.each(parsed, function (i, elem) {
+			// 	if (!elem.tagName || elem.tagName.toUpperCase() != "P")
+			// 	{
+			// 		elem.remove();
+			// 		return;
+			// 	}
+			// 	console.log(elem.tagName);
+			// });
+		}
+		
+		function inputChange(e)
+		{
+			
 		}
 	</script>
 </head>
@@ -153,7 +251,6 @@
 					<button id="underline-button" class="formatting-button inactive-button" style="background-image: url('img/underline.png');" onclick="underline();"></button>
 					<button id="comment-button" class="formatting-button inactive-button" style="background-image: url('img/comment.png');" onclick="comment();"></button>
 					<button id="word-button" class="formatting-button inactive-button" style="background-image: url('img/word.png');" onclick="$('#file-upload').trigger('click'); return false;"></button>
-					<input type="file" id="file-upload" name="file" style="display:none" />
 				</td>
 				<td></td>
 			</tr>
@@ -162,7 +259,7 @@
 					<div class="paper-holder paper-text">
 						<div class="top-bar"></div>
 						<input type="text" class="paper-title" placeholder="Click to edit title...">
-							<div class="paper" contenteditable="true" onblur="disableButtons();" onchange="updateButtons();" onfocus="updateButtons();" onselect="updateButtons();" onkeydown="updateButtons();" onkeyup="updateButtons();" onmousedown="updateButtons();" onmouseup="updateButtons();"></div>
+							<div class="paper" contenteditable="true" onpaste="pasteHandle(event); return false;" onblur="disableButtons();" onchange="updateButtons();" onfocus="updateButtons();" onselect="updateButtons();" onkeydown="updateButtons();" onkeyup="updateButtons();" onmousedown="updateButtons();" onmouseup="updateButtons();"></div>
 					</div>
 				</td>
 				<td>
@@ -174,6 +271,8 @@
 				</td>
 			</tr>
 		</table>
+		<input type="file" id="file-upload" name="file" style="display:none;">
+		<input type="text" id="paste-box" style="display:none;">
 	 </form>
 </body>
 </html>

@@ -415,10 +415,10 @@ button
 	text-align: center;
 	border: none;
 }
-.paper-title::-webkit-input-placeholder { font-style: italic; }
-.paper-title:-moz-placeholder { font-style: italic; }
-.paper-title::-moz-placeholder { font-style: italic; }
-.paper-title:-ms-input-placeholder { font-style: italic; }
+.paper-title::-webkit-input-placeholder { font-style: italic; text-align: center; }
+.paper-title:-moz-placeholder { font-style: italic; text-align: center; }
+.paper-title::-moz-placeholder { font-style: italic; text-align: center; }
+.paper-title:-ms-input-placeholder { font-style: italic; text-align: center; }
 .paper-title:focus::-webkit-input-placeholder { color: transparent; }
 .paper-title:focus:-moz-placeholder { color: transparent; }
 .paper-title:focus::-moz-placeholder { color: transparent; }

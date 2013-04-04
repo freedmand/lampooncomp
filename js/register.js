@@ -141,15 +141,15 @@ function showValidation(data)
 		return;
 	}
 	
-	$.removeCookie('reg_email', { path: '/' });
-	$.cookie('reg_email', $('[name="femail"]').val(), { path: '/' });
+	// $.removeCookie('reg_email', { path: '/' });
+	// $.cookie('reg_email', $('[name="femail"]').val(), { path: '/' });
 	
 	window.location = "validate.html";
 }
 
 function resendEmail()
 {
-	var email = $.cookie('reg_email');
+	// var email = $.cookie('reg_email');
 	if (email === undefined)
 	{
 		showError('Please enable cookies and try again.');
@@ -157,7 +157,7 @@ function resendEmail()
 	}
 	
 	$.post('validate.php', {
-		'email': email,
+		// 'email': email,
 		'type': 'resend'
 	}).done(function () { location.reload(); });
 }
@@ -171,15 +171,15 @@ function validate()
 		return;
 	}
 	
-	var email = $.cookie('reg_email');
-	if (email === undefined)
-	{
-		showError('Please enable cookies and try again.');
-		return;
-	}
+	// var email = $.cookie('reg_email');
+	// if (email === undefined)
+	// {
+	// 	showError('Please enable cookies and try again.');
+	// 	return;
+	// }
 	
 	$.post('validate.php', {
-		'email': email,
+		// 'email': email,
 		'validation': validation,
 		'type': 'validate'
 	}).done(validateFinal);
@@ -198,8 +198,8 @@ function validateFinal(data)
 		return;
 	}
 	
-	$.removeCookie('reg_val', { path: '/' });
-	$.cookie('reg_val', $('[name="fvalidation"]').val().toLowerCase(), { path: '/' });
+	// $.removeCookie('reg_val', { path: '/' });
+	// $.cookie('reg_val', $('[name="fvalidation"]').val().toLowerCase(), { path: '/' });
 	
 	window.location = "createaccount.html";
 }
@@ -237,18 +237,18 @@ function finish()
 	}
 	var board = selectedButton[0].name;
 	
-	var validation = $.cookie('reg_val');
-	var email = $.cookie('reg_email');
-	if (validation === undefined || email === undefined)
-	{
-		showError('Please enable cookies and try again.');
-		return;
-	}
+	// var validation = $.cookie('reg_val');
+	// var email = $.cookie('reg_email');
+	// if (validation === undefined || email === undefined)
+	// {
+	// 	showError('Please enable cookies and try again.');
+	// 	return;
+	// }
 	
 	$.post('validate.php', {
 		'board': board,
-		'email': email,
-		'validation': validation,
+		// 'email': email,
+		// 'validation': validation,
 		'password': password,
 		'type': 'finish'
 	}).done(function (data) { alert(data); });

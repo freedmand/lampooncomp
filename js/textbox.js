@@ -51,7 +51,10 @@ $(document).delegate('.paper', 'keydown', function(e) {
 	}
 	
 	if ((event.metaKey || event.ctrlKey) && String.fromCharCode(keyCode).toUpperCase() == 'B')
+	{
+		console.log("BOLD");
 		bold();
+	}
 	else if ((event.metaKey || event.ctrlKey) && String.fromCharCode(keyCode).toUpperCase() == 'I')
 		italic();
 	else if ((event.metaKey || event.ctrlKey) && String.fromCharCode(keyCode).toUpperCase() == 'U')

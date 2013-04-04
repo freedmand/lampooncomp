@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Test page</title>
+	<link rel="stylesheet" type="text/css" href="../css/comp.css">
+	<link rel="stylesheet" type="text/css" href="../css/fonts.css">
+	
+	<script src="../js/jquery-1.8.3.js"></script>
+	<script src="../js/jquery-ui.js"></script>
+	<script src="../js/jquery.cookie.js"></script>
+	
+	<script src="ajaxcookietest.js"></script>
+	
+	<script>
+	$(document).ready(function() {
+		// $("#thatimg").click(function(e)
+		// {
+			// var offset = $(this).offset();
+			// var coord = '' + (e.pageX - offset.left) + ', ' + (e.pageY - offset.top);
+			// console.log(coord);
+		// });
+		$("#thatimg").on('mousedown', function (e)
+		{
+			var offset = $(this).offset();
+			var coord = '' + (e.pageX - offset.left) + ', ' + (e.pageY - offset.top);
+			$(this).data('coord', [e.pageX - offset.left, e.pageY - offset.top]);
+			
+			var h = $('<div></div>');
+			h.css('position','absolute');
+			h.css('background-color','rgba(255,255,0,0.2)');
+			h.css('border', 'solid');
+			h.css('width','0px');
+			h.css('height','0px');
+			h.css('left','' + coord[0] + 'px');
+			h.css('top','' + coord[1] + 'px');
+			$(document.body).append(h);
+			$(this).data('highlight', h);
+			
+			console.log('down: ' + coord);
+		});
+		// $("#thatimg").on('mouseout', function (e)
+		// {
+		// 	$(this).removeData('coord');
+		// });
+		
+		$(document).on('mouseup', function (e)
+		{
+			var elem = $('#thatimg');
+			var coord = elem.data('coord');
+			if (coord === undefined)
+				return;
+			elem.removeData('coord');
+			var offset = elem.offset();
+			if (e.pageX >= offset.left && e.pageX <= offset.left + elem.width() &&
+				e.pageY >= offset.top && e.pageY <= offset.top + elem.height())
+			{
+				var newcoord = '' + (e.pageX - offset.left) + ', ' + (e.pageY - offset.top);
+				console.log('up: ' + coord + '//' + newcoord);
+			}
+			else
+			{
+				var h = elem.data('highlight')
+				if (h)
+				{
+					elem.removeData('highlight');
+					h.remove();
+				}
+			}
+		});
+		$("#thatimg").on('mousemove', function (e)
+		{
+			var oldcoord = $(this).data('coord');
+			if (oldcoord)
+			{
+				var offset = $(this).offset();
+				var coord = [e.pageX - offset.left, e.pageY - offset.top];//'' + (e.pageX - offset.left) + ', ' + (e.pageY - offset.top);
+				var h = $(this).data('highlight');
+				if (h)
+				{
+					h.css('left', Math.min(oldcoord[0], coord[0]) + offset.left);
+					h.css('top', Math.min(oldcoord[1], coord[1]) + offset.top);
+					h.css('width', Math.abs(oldcoord[0] - coord[0]));
+					h.css('height', Math.abs(oldcoord[1] - coord[1]));
+				}
+				console.log('drag');
+			}
+		});
+		$("#thatimg").on('dragstart', function (e)
+		{
+			e.preventDefault();
+		});
+		// 
+		// $("#thatimg").draggable({
+		// 	start: function (e, ui)
+		// 	{
+		// 
+		// 	},
+		// 	stop: function (e, ui)
+		// 	{
+		// 		var offset = $(this).offset();
+		// 		var coord = 'stop: ' + (e.pageX - offset.left) + ', ' + (e.pageY - offset.top);
+		// 		console.log(coord);
+		// 	}
+		// });
+	});
+	</script>
+</head>
+<body class="main">
+	<button onclick="doStuff();">Click</button>
+	<img id="thatimg" src="../img/logo_big.png"></img>
+</body>
+</html>

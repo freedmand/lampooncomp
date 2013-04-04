@@ -11,13 +11,4 @@
 	pclose($handle);
 	
 	system("python convert.py $tmp_out 2>&1");
-	
-	// exit(file_get_contents($tmp_out));
-	//   //include("ome.html");
-	// 
-	// exit($tmp_file);
-	// exit();
-	// exit('dog');
-	// exit($_SERVER['HTTP_X_FILE_NAME']);
-
 ?>

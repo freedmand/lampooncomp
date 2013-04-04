@@ -1,7 +1,9 @@
+html { height: 100%; }
+
+body { height: 100%; margin: 0; padding: 0; }
+
 body.main
 {
-	margin: 0;
-	padding: 0;
 	background-color: #fffcbd;
 	margin-bottom: 50px;
 }
@@ -9,9 +11,14 @@ body.main
 body.form
 {
 	background-color: #fffdd7;
-	margin: 0;
-	padding: 0;
 	margin-bottom: 50px;
+}
+
+h1
+{
+	font-family: 'museosans';
+	font-size: 4em;
+	font-weight: normal;
 }
 
 .curl
@@ -23,7 +30,7 @@ body.form
 
 .intro-text
 {
-	font-size: 0.5em;
+	font-size: 2em;
     font-family: 'iridium';
     line-height: 2em;
 }
@@ -182,19 +189,40 @@ body.form
 	margin-right: auto;
 }
 
+.castle
+{
+	position: absolute;
+	width: 90%;
+	top: 181px;
+	bottom: 0;
+	background: #fffdd7 url('../img/castle.png') no-repeat right bottom;
+	background-size: contain;
+	z-index: -1;
+}
+
 .content
 {
-	position: relative;
+	position: absolute;
+	width: 1000px;
+	padding-top: 106px;
+	bottom: 0;
+	top: 181px;
+	color: #2b2330;
+	text-align: center;
+	left: 50%;
+	margin-left: -500px;
+	
+/*	position: relative;
 	width: 1000px;
 	margin-left: auto;
 	margin-right: auto;
-	margin-top: 1.5em;
+	padding-top: 1.5em;
 	height: 100%;
 	
 	font-family: 'museosans';
 	color: #2b2330;
 	font-size: 4em;
-	text-align: center;
+	text-align: center;*/
 }
 
 .author-list
@@ -508,4 +536,4 @@ button
 .red-button:hover { background-color:#a53336; }
 .red-button:active { background-color:#7a3030; }
 
-input, select, textarea, button{ font-family:inherit; font-size: inherit; line-height: inherit; }
+input, textarea { font-family:inherit; font-size: inherit; line-height: inherit; }

@@ -171,6 +171,7 @@ h1
 	padding-left: 10px;
 	padding-right: 10px;
 	margin-bottom: 1em;
+	overflow: hidden;
 }
 
 #logo_img
@@ -191,7 +192,7 @@ h1
 
 .castle
 {
-	position: absolute;
+	position: fixed;
 	width: 90%;
 	top: 181px;
 	bottom: 0;
@@ -338,6 +339,18 @@ h1
 	display: block;
 	margin-top: 1em;
 }
+.compact-button
+{
+	display: inline;
+	font-family: 'futura-pt-bold';
+	font-size: 2em;
+	width: auto;
+	margin-top: 0;
+	vertical-align: middle;
+	margin-bottom: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+}
 
 table {
     border-collapse: collapse;
@@ -362,12 +375,12 @@ button
 
 .panel
 {
-	padding-left: 40px;
+	padding-left: 60px;
 }
 
 .paper-text
 {
-	font: 23px/1.5 'times', 'Times New Roman', sans-serif !important;
+	font: 20px/1.5 'times', 'Times New Roman', sans-serif !important;
 /*	font-family: 'times', 'Times New Roman', sans-serif !important;
 	font-size: 1.44em !important;
 	line-height: 1.5 !important;*/
@@ -390,6 +403,7 @@ button
 	background-color: white;
 	margin-left: 20px;
 	text-align:center;
+	margin-bottom: 2em;
 }
 
 .paper
@@ -397,7 +411,7 @@ button
 	border: none;
 	display: block;
 	width: 100%;
-	height: auto;
+	height: 35.6em;;
 	outline: none;
 	text-align: left;
 	margin-left: auto;
@@ -513,7 +527,36 @@ button
 	height: 40px;
 	padding: 4px;
 	margin-right: 6px;
+	vertical-align: middle;
 }
+
+/*#modal_overlay
+{
+	position: fixed; 
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+}
+
+#modal_vertical
+{
+	position: fixed;
+	top: 33%;
+	width: 100%;
+}
+
+#modal_content
+{
+	position: relative;
+	width: 600px;
+	min-height: 33%;
+	margin: 0 auto;
+	background: yellow;
+	border-radius: 14px;
+	padding: 20px;
+}*/
 
 .inactive-button { background-color: #dfddec; }
 .inactive-button:hover { background-color: #ebeafd; }

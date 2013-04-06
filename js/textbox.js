@@ -10,9 +10,19 @@ var entityMap = {
 };
 
 String.prototype.escapeHTML = function() {
-	return String(this).replace(/[&<>"'\/]/g, function (s) {
+	var simple_escape = String(this).replace(/[&<>"'\/]/g, function (s) {
 		return entityMap[s];
 	});
+	var result = '';
+	for (var i = 0; i < simple_escape.length; i++)
+	{
+		var code = simple_escape.charCodeAt(i);
+		if (code > 126)
+			result += '&#' + code + ';';
+		else
+			result += simple_escape.charAt(i);
+	}
+	return result;
 }
 
 function insertText(text)
@@ -33,7 +43,7 @@ function insertHtml(html)
 	var sel = rangy.getSelection();
 	var range = sel.getRangeAt(0);
 	range.deleteContents();
-	var node = $("<div></div>").append($(html))[0];//$(html);
+	var node = $("<div></div>").append(html)[0];//$(html);
 	range.insertNode(node);
 	range.setStartAfter(node);
 	range.collapse(true);
@@ -89,10 +99,29 @@ $('#file-upload').live('change', function()
 	xhr.send(file);
 });//, false);
 
+function hideMsg()
+{
+	$('.notify-msg').unbind('mouseenter');
+	$('.notify-msg').mouseenter(revealMsg);
+	$('.notify-msg').clearQueue();
+	$('.notify-msg').animate({'height': '0px', 'padding-bottom': '0px'}, 500);
+}
+function revealMsg()
+{
+	$('.notify-msg').focus();
+	$('.notify-msg').unbind('mouseleave');
+	$('.notify-msg').mouseleave(hideMsg);
+	$('.notify-msg').clearQueue();
+	$('.notify-msg').animate({'height': $('.notify-msg').data('height'), 'padding-bottom': '20px'}, 500);
+}
+
 window.onload = function()
 {
 	rangy.init();
 	commentApplier = rangy.createCssClassApplier("comment-inline", {normalize: true, elementTagName: 'span', elementProperties: {'onclick': function () {alert("hell yeah!"); return false;}}});
+	$('.notify-msg').data('height', $('.notify-msg').height());
+	$('.paper-title').focus(hideMsg);
+	$('.paper').focus(hideMsg);
 };
 
 function updateButtons()
@@ -123,7 +152,6 @@ function disableButtons()
 
 function bold()
 {
-	console.log('yea');
 	document.execCommand('bold');
 	updateButtons();
 }
@@ -227,4 +255,15 @@ function parseHtml(html)
 	}
 	
 	return output_html;
+}
+
+function submit()
+{
+	var title = $('.paper-title').val();
+	var data = $('.paper').html();
+	$.post('submit.php', {
+		'title': title,
+		'istext': '1',
+		'data': data
+	}).done(function (data) { alert(data); });
 }

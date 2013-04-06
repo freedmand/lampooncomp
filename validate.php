@@ -2,107 +2,14 @@
 
 error_reporting(E_ERROR | E_PARSE);
 
-// Robert Jenkins' Newhash function
-function h($k, $x, $a)
-{
-	$c = $x;
-	$b = $k;
-	$a=$a-$b; $a=$a-$c; $a=$a^($c >> 13);
-	$b=$b-$c; $b=$b-$a; $b=$b^($a << 8); 
-	$c=$c-$a; $c=$c-$b; $c=$c^($b >> 13);
-	$a=$a-$b; $a=$a-$c; $a=$a^($c >> 12);
-	$b=$b-$c; $b=$b-$a; $b=$b^($a << 16);
-	$c=$c-$a; $c=$c-$b; $c=$c^($b >> 5);
-	$a=$a-$b; $a=$a-$c; $a=$a^($c >> 3);
-	$b=$b-$c; $b=$b-$a; $b=$b^($a << 10);
-	$c=$c-$a; $c=$c-$b; $c=$c^($b >> 15);
-	return $c;
-}
-
-// force integer to unsigned value
-function u($i)
-{
-	return $i & 0xFFFFFFFF;
-}
-function ul($i, $m)
-{
-	return u($i) % $m;
-}
-
-function aura($i, $X, $Y, $k1, $k2, $k3, $a)
-{
-	$v = (int)($i / $X);
-	$u = $i % $X;
-	$v = ul(($v + h($k1, $u, $a)), $Y);
-	$u = ul(($u + h($k2, $v, $a)), $X);
-	$v = ul(($v + h($k3, $u, $a)), $Y);
-	return u($v * $X + $u);
-}
+include 'hash.php';
+include 'email.php';
 
 // random seed values
 $k1_id = 1971686994;
 $k2_id = 2890581612;
 $k3_id = 3758735121;
 $q_id = 1070150195;
-
-$width = 50000;
-$height = 50000;
-
-function verificationCode($id)
-{
-	$padlen = strlen(dechex($width * $height));
-	$prefix = str_pad(dechex($id), $padlen, "0", STR_PAD_LEFT);
-	$suffix = md5($prefix . "_lampooncastle_comp_harv");
-	return $prefix . $suffix;
-}
-
-function verifyCode($code)
-{
-	$padlen = strlen(dechex($width * $height));
-	if (strlen($code) != $padlen + 32)
-		return false;
-	$prefix = substr($code,0,$padlen);
-	$suffix = substr($code,$padlen);
-	return strcmp($suffix, md5($prefix . "_lampooncastle_comp_harv")) == 0;
-}
-
-function sendEmail($from, $from_name, $to, $subject, $html, $text)
-{
-	$from = "$from_name <$from>";
-	$mime_boundary = 'Multipart_Boundary_x'.md5(time()).'x';
-
-	$headers  = "MIME-Version: 1.0\r\n";
-	$headers .= "Content-Type: multipart/alternative; boundary=\"$mime_boundary\"\r\n";
-	$headers .= "Content-Transfer-Encoding: 7bit\r\n";
-	$replyto .= "reply-to: $from";
-
-	$body = "This is a multi-part message in mime format.\n\n";
-
-	# Add in plain text version
-	$body.= "--$mime_boundary\n";
-	$body.= "Content-Type: text/plain; charset=\"charset=us-ascii\"\n";
-	$body.= "Content-Transfer-Encoding: 7bit\n\n";
-	$body.= $text;
-	$body.= "\n\n";
-
-	# Add in HTML version
-	$body.= "--$mime_boundary\n";
-	$body.= "Content-Type: text/html; charset=\"UTF-8\"\n";
-	$body.= "Content-Transfer-Encoding: 7bit\n\n";
-	$body.= $html;
-	$body.= "\n\n";
-	
-	# End email
-	$body.= "--$mime_boundary--\n";
-
-	# Finish off headers
-	$headers .= "From: $from\r\n";
-	$headers .= "X-Sender-IP: $_SERVER[SERVER_ADDR]\r\n";
-	$headers .= 'Date: '.date('n/d/Y g:i A')."\r\n";
-	$replyto .= "reply-to: $from";
-	# Mail it out
-	return mail($to, $subject, $body, $headers);
-}
 
 try
 {
@@ -214,10 +121,6 @@ try
 	}
 	else if ($type === 'reset')
 	{
-		$mysqli = new mysqli("localhost", "root", "root", "lampooncomp");
-		if (mysqli_connect_errno())
-			exit('error');
-
 		$email = $mysqli->real_escape_string($_POST["email"]);
 
 		$newpass = substr(md5(microtime()),rand(0,26),8);

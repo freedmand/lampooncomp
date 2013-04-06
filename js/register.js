@@ -11,6 +11,10 @@ function showError(msg)
 	);
 }
 
+function getURLParameter(name) {
+	return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]);
+}
+
 function login()
 {
 	$("#reset_msg").slideUp(ANIMATION_DURATION);
@@ -43,8 +47,11 @@ function loginValidate(data)
 	}
 	else if (data == 'true')
 	{
-		alert('success');
-		// set cookie, go to portfolio
+		var redirect = getURLParameter("redirect");
+		if (redirect != "null")
+			window.location = redirect;
+		else
+			window.location = "welcome.php";
 	}
 }
 

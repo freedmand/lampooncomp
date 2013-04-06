@@ -58,7 +58,7 @@ function aura($i, $X, $Y, $k1, $k2, $k3, $a)
 $width = 50000;
 $height = 50000;
 
-$result = $mysqli->query("INSERT INTO users (id,id_incr,verify_id,name,email,passwordhash,room,year,boards) VALUES(NULL,DEFAULT,NULL,'$name','$email',NULL,'$room','$year',NULL)");
+$result = $mysqli->query("INSERT INTO users (name,email,room,year) VALUES('$name','$email','$room','$year')");
 $id_incr = $mysqli->insert_id;
 
 $id = aura($id_incr, $width, $height, $k1_id, $k2_id, $k3_id, $q_id);

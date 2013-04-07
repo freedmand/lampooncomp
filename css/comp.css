@@ -609,6 +609,8 @@ button
 {
 	max-width: 500px;
 	max-height: 500px;
+	border: solid 5px #3f2b50;
+	border-radius: 8px;
 }
 
 #img-loader

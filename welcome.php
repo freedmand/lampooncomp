@@ -21,23 +21,7 @@
 	<script src="js/portfolio.js"></script>
 </head>
 <body class="form">
-	<div class="body-header">
-		<div class="header-options">
-			<a class="header-link" href="login.html">account</a> <span class="divider">|</span> <a class="header-link" href="signout.php">sign out</a>
-		</div>
-		<a class="logo-holder">
-			<img src="img/logo_fut.png" id="logo_img" alt="The Harvard Lampoon">
-		</a>
-	</div>
-	<div class="comp-header">
-		<a class="comp-link" href="about:blank">PORTFOLIO</a>
-		<span class="comp-sep">&middot;</span>
-		<a class="comp-link" href="about:blank">FEEDBACK</a>
-		<span class="comp-sep">&middot;</span>
-		<a class="comp-link" href="about:blank">DIRECTORS</a>
-		<span class="comp-sep">&middot;</span>
-		<a class="comp-link" href="about:blank">ACCOUNT</a>
-	</div>
+	<?php include 'compheader.php'; ?>
 	<div class="content">
 		<h1>Welcome, <?php echo $first?></h1>
 		<button class="form-button orange-button" onclick=<?php echo '"submitPiece(this, \'' . $board. '\');"'?>>

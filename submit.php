@@ -32,7 +32,7 @@ $title = $mysqli->real_escape_string($_POST["title"]);
 $istext = $mysqli->real_escape_string($_POST["istext"]);
 $data = $_POST["data"];
 
-if (!$result = $mysqli->query("REPLACE INTO articles (id,title,istext) VALUES('$id','$title','$istext')"))
+if (!$result = $mysqli->query("INSERT INTO articles (id,title,istext) VALUES('$id','$title','$istext')"))
 	exit('error');
 $article_id_incr = $mysqli->insert_id;
 

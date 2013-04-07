@@ -1,6 +1,7 @@
 $(document).ready(function()
 {
 	$('#img-preview').on('dragstart', function(event) { event.preventDefault(); });
+	$('#upload-content').click(function () { $('#file-upload').click(); return false; });
 });
 
 function uploadFile(obj)
@@ -22,28 +23,51 @@ function uploadFile(obj)
 		};
 	}
 	xhr.onreadystatechange = function(e) {
-		if ( 4 == this.readyState ) {
+		if (this.readyState == 4) {
 			console.log(['xhr upload complete', e]);
+			
 			$('#img-loader').css('visibility', 'hidden');
-			updateProgress(1.0);
-			$('#content-holder').html('<h3>Upload complete.</h3>');
+			$('#upload-content').html('Submit');
+			$('#upload-content').removeClass('purple-button').removeClass('orange-button').addClass('red-button');
+			$('#upload-content').click(submit);
+			$('#upload-content').data('article-id', xhr.responseText);
 		}
-		$('.paper').html(e.target.responseText);
 	};
-	xhr.open('post', 'upload.php', true);
+	xhr.open('post', 'artupload.php', true);
 	xhr.setRequestHeader("X-File-Name", file.name);
 	xhr.send(file);
 }
 
+function submit()
+{
+	var articleId = parseInt($('#upload-content').data('article-id'));
+	var title = $('[name="ftitle"]').val();
+	if (!isNaN(articleId) && isFinite(articleId))
+	{
+		$.post('artsubmit.php', {
+			'article_id': articleId,
+			'title': title
+		}).done(parseSubmit);
+	}
+}
+
+function parseSubmit(data)
+{
+	alert(data);
+}
+
 function updateProgress(percent)
 {
+	if (percent < 0 || percent > 1)
+		return;
 	var imgLoad = $('#img-loader');
 	var left = imgLoad.data('left') + percent * imgLoad.data('width');
 	// var offset = imgLoad.data('width') - width;
 	imgLoad.stop(true, false);
 	$('#img-preview').css('visibility', 'visible');
+	$('#img-loader').css('visibility', 'visible');
 	imgLoad.animate({'left': left + 'px'}, 100);
-	$('#content-holder').html('<h3>Uploading (' + Math.floor(percent * 100) + ')</h3>');
+	$('#upload-content').html(Math.floor(percent * 100) + '%');
 }
 
 function previewImg(input)
@@ -63,10 +87,12 @@ function previewImg(input)
 				$('#img-loader').css('right', ($(window).width() - offset.left - $('#img-preview').outerWidth()) + 'px');
 				$('#img-loader').css('left', offset.left + 'px');
 				$('#img-loader').data('left', offset.left);
-				$('#img-loader').data('width', $('#img-preview').width());
-				$('#img-loader').css('height', $('#img-preview').height() + 'px');
+				$('#img-loader').data('width', $('#img-preview').outerWidth());
+				$('#img-loader').css('height', $('#img-preview').outerHeight() + 'px');
 				
 				$('.paper-title').css('visibility', 'visible');
+				$('#img-preview').css('visibility', 'visible');
+				$('#img-loader').css('visibility', 'visible');
 
 				updateProgress(0.0);
 			};
@@ -74,5 +100,9 @@ function previewImg(input)
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-	$('#content-holder').html('<h3>Uploading...</h3>');
+	$('#title-row').css('display', 'block');
+	$('#header-holder').css('display', 'none');
+	$('#upload-content').unbind('click');
+	$('#upload-content').html('Uploading...');
+	$('#upload-content').removeClass('orange-button').addClass('purple-button');
 }

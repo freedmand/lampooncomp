@@ -18,7 +18,7 @@
 	<script src="js/jquery-1.8.3.js"></script>
 	<script src="js/jquery-ui.js"></script>
 	
-	<script src="js/methods.js"></script>
+	<script src="js/portfolio.js"></script>
 </head>
 <body class="form">
 	<div class="body-header">
@@ -40,9 +40,6 @@
 	</div>
 	<div class="content">
 		<h1>Welcome, <?php echo $first?></h1>
-		<!-- <p class="intro-text">
-			Click on a button above, or
-		</p> -->
 		<button class="form-button orange-button" onclick=<?php echo '"submitPiece(this, \'' . $board. '\');"'?>>
 			Submit piece
 		</button>

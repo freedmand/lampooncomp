@@ -37,7 +37,7 @@
 					<button id="italic-button" class="formatting-button inactive-button" style="background-image: url('img/italic.png');" onclick="italic();"></button>
 					<button id="underline-button" class="formatting-button inactive-button" style="background-image: url('img/underline.png');" onclick="underline();"></button>
 					<button id="comment-button" class="formatting-button inactive-button" style="background-image: url('img/comment.png');" onclick="comment();"></button>
-					<button id="word-button" class="formatting-button inactive-button" style="background-image: url('img/word.png');" onclick="$('#file-upload').trigger('click'); return false;"></button>
+					<button id="word-button" class="formatting-button inactive-button" style="background-image: url('img/word.png');" onclick="$('#file-upload').click(); return false;"></button>
 				</span>
 				<span style="float: right;"><button id="submit-button" class="compact-button orange-button" onclick="submit();">Submit</button></span>
 				<span style="float: right;"><button id="back-button" class="compact-button purple-button" style="margin-right: 0.5em;" onclick="back();">Back</button></span>
@@ -53,15 +53,13 @@
 				</div>
 			</td>
 			<td>
-					<div class="comment-pane" style="display: none;">
-						<div class='pane-header'>Feedback</div>
-					</div>
-				<!-- </div> -->
+				<div class="comment-pane" style="display: none;">
+					<div class='pane-header'>Feedback</div>
+				</div>
 			</td>
 		</tr>
 	</table>
-	<input type="file" id="file-upload" name="file" style="display:none;">
-	<input type="text" id="paste-box" style="display:none;">
+	<input type="file" id="file-upload" name="file" style="visibility:hidden;" onchange="uploadFile(this);">
 </body>
 </html>
 <?php ob_end_flush(); ?>

@@ -71,7 +71,7 @@ $(document).delegate('.paper', 'keydown', function(e) {
 		underline();
 });
 
-$('#file-upload').live('change', function()
+function uploadFile(obj)
 {
 	console.log('change');
 	var file = this.files[0];
@@ -91,13 +91,12 @@ $('#file-upload').live('change', function()
 		if ( 4 == this.readyState ) {
 			console.log(['xhr upload complete', e]);
 		}
-		// console.log(e.target.responseText);
 		$('.paper').html(e.target.responseText);
 	};
 	xhr.open('post', 'upload.php', true);
 	xhr.setRequestHeader("X-File-Name", file.name);
 	xhr.send(file);
-});//, false);
+}
 
 function hideMsg()
 {
@@ -115,14 +114,14 @@ function revealMsg()
 	$('.notify-msg').animate({'height': $('.notify-msg').data('height'), 'padding-bottom': '20px'}, 500);
 }
 
-window.onload = function()
+$(document).ready(function()
 {
 	rangy.init();
 	commentApplier = rangy.createCssClassApplier("comment-inline", {normalize: true, elementTagName: 'span', elementProperties: {'onclick': function () {alert("hell yeah!"); return false;}}});
 	$('.notify-msg').data('height', $('.notify-msg').height());
 	$('.paper-title').focus(hideMsg);
 	$('.paper').focus(hideMsg);
-};
+});
 
 function updateButtons()
 {
@@ -259,7 +258,7 @@ function parseHtml(html)
 
 function submit()
 {
-	var title = $('.paper-title').val();
+	var title = $('.paper-title').val().escapeHTML();
 	var data = $('.paper').html();
 	$.post('submit.php', {
 		'title': title,

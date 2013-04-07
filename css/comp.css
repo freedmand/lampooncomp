@@ -21,6 +21,28 @@ h1
 	font-weight: normal;
 }
 
+h2
+{
+	text-align: center;
+	font-size: 2.5em;
+	font-family: 'museosans';
+	font-weight: normal;
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+	color: #2b2330;
+}
+
+h3
+{
+	text-align: center;
+	font-size: 2.5em;
+	font-family: 'museosans';
+	font-weight: normal;
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+	color: #461584;
+}
+
 .curl
 {
 	margin-top: 0;
@@ -53,7 +75,6 @@ h1
 	letter-spacing: .08em;
 	color: #fdeab6;
 	background-color: #4e317a;
-/*	background-color: #503a67;*/
 }
 
 .comp-link:link
@@ -108,6 +129,11 @@ h1
 {
 	color: #e3e3e3;
 	margin: 7px;
+}
+
+.entry
+{
+	margin-bottom: 1em;
 }
 
 .separator
@@ -180,6 +206,7 @@ h1
 	margin-top: 10px;
 	margin-left: auto;
 	margin-right: auto;
+	cursor: pointer;
 }
 
 #logo_big
@@ -236,7 +263,8 @@ h1
 .title-list
 {
 	font-size: 1.5em;
-	font-family: 'arvo';
+	font-family: 'sourcesanspro';
+	letter-spacing: 0.04em;
 	color: #5a5a8b;
 }
 
@@ -247,11 +275,14 @@ h1
 	padding: 0.7em;
 	color: rgb(0, 0, 139);
 	border-style: solid;
-	margin-left: 2em;
 	margin-top: 1em;
-	margin-bottom: 1em;
+	margin-bottom: 2em;
+	margin-left: auto;
+	margin-right: auto;
 	line-height: 1.5em;
-	font-family: "giovannibook";
+	border-radius: 10px;
+	font-family: "times";
+	font-size: 1.2em;
 	border-color: #7f7fc4;
 }
 
@@ -270,6 +301,18 @@ h1
 	letter-spacing: 0.06em;
 }
 
+.form-row
+{
+	text-align: center;
+	margin: 1em;
+}
+
+.form-placeholder
+{
+	display: inline-block;
+	width: 300px;
+}
+
 .form-table
 {
 	margin-left: auto;
@@ -278,18 +321,24 @@ h1
 
 .form-label
 {
+	vertical-align: middle;
 	font-family: 'museosans';
 	font-size:3em;
 	text-align: right;
 	color: #5c4074;
+	
+	margin-bottom: 0px;
+	border: 0px transparent;
+	border-bottom-width: 5px;
 }
 
 .form-input
 {
+	vertical-align: middle;
 	background-color: transparent;
 	font-family: 'times', sans-serif;
 	font-size:3em;
-	vertical-align: text-bottom;
+/*	vertical-align: text-bottom;*/
 	border-radius:8px;
 	-moz-border-radius:8px;
 	-webkit-border-radius:8px;
@@ -438,9 +487,6 @@ button
 .paper-title:focus::-moz-placeholder { color: transparent; }
 .paper-title:focus:-ms-input-placeholder { color: transparent; }
 
-/*.paper::selection { background: rgba(170, 213, 255, 0.8); }
-.paper::-moz-selection { background: rgba(170, 213, 255, 0.8); }*/
-
 .top-bar
 {
 	position: absolute;
@@ -530,34 +576,6 @@ button
 	vertical-align: middle;
 }
 
-/*#modal_overlay
-{
-	position: fixed; 
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: transparent;
-}
-
-#modal_vertical
-{
-	position: fixed;
-	top: 33%;
-	width: 100%;
-}
-
-#modal_content
-{
-	position: relative;
-	width: 600px;
-	min-height: 33%;
-	margin: 0 auto;
-	background: yellow;
-	border-radius: 14px;
-	padding: 20px;
-}*/
-
 .inactive-button { background-color: #dfddec; }
 .inactive-button:hover { background-color: #ebeafd; }
 .inactive-button:active { background-color: #fccc91; }
@@ -578,5 +596,26 @@ button
 .red-button { background-color:#963031; color:#fffdca; }
 .red-button:hover { background-color:#a53336; }
 .red-button:active { background-color:#7a3030; }
+
+#img-container
+{
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	border-radius: 8px;
+}
+
+#img-preview
+{
+	max-width: 500px;
+	max-height: 500px;
+}
+
+#img-loader
+{
+	position: absolute;
+	border-radius: 8px;
+	background: rgba(54,10,54,0.85);
+}
 
 input, textarea { font-family:inherit; font-size: inherit; line-height: inherit; }

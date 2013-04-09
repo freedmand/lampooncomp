@@ -63,7 +63,7 @@ function submit()
 
 function parseSubmit(data)
 {
-	alert(data);
+	window.location = 'portfolio.php';
 }
 
 function updateProgress(percent)

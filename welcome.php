@@ -18,7 +18,7 @@
 	<script src="js/jquery-1.8.3.js"></script>
 	<script src="js/jquery-ui.js"></script>
 	
-	<script src="js/portfolio.js"></script>
+	<script src="js/welcome.js"></script>
 </head>
 <body class="form">
 	<?php include 'compheader.php'; ?>

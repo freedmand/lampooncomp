@@ -120,7 +120,7 @@ else
 				?>
 			</span>
 			<span style="float: right;"><button id="submit-button" class="compact-button orange-button" onclick=<?php echo $preload ? '"feedbackSubmit();"' :  '"submit();"';?>>Submit</button></span>
-			<span style="float: right;"><button id="back-button" class="compact-button purple-button" style="margin-right: 0.5em;" onclick="back();">Back</button></span>
+			<span style="float: right;"><button id="back-button" class="compact-button purple-button" style="margin-right: 0.5em;" onclick="window.location='portfolio.php';">Back</button></span>
 			</span>
 		<span class="comment-placeholder" style="display: none; width:300px;"></span>
 	</div>

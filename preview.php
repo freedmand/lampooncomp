@@ -36,6 +36,13 @@
 		if (mysqli_connect_errno())
 			exit('error');
 		
+		if (!$result = $mysqli->query("SELECT title FROM articles WHERE article_id='$articleid'"))
+			exit('error');
+		if ($result->num_rows == 0)
+			exit('error');
+		$row = $result->fetch_assoc();
+		$title = $row['title'];
+		
 		if (!$result = $mysqli->query("SELECT start,end,start_y,end_y,data,author_id FROM feedback WHERE article_id='$articleid'"))
 			exit('error');
 		
@@ -65,7 +72,7 @@
 		<span class="art-panel">
 			<span class='art-span'>
 			</span>
-			<span class="art-title art-span" style="float: left;">Grandpa's day off</span>
+			<span class="art-title art-span" style="float: left;"><?php echo $title; ?></span>
 			<span class='art-span' style="float: right; margin-right: 205px;">
 				<button id="back-button" class="compact-button purple-button" style="margin-right: 0.5em;" onclick="back();">Back</button>
 				<button id="submit-button" class="compact-button orange-button" onclick="feedbackSubmit();">Submit</button>

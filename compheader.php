@@ -1,5 +1,5 @@
 <?php
-if ($_SESSION['directors'] == '0')
+if ($_SESSION['director'] == '0')
 {
 echo '<div class="body-header">
 	<div class="header-options">

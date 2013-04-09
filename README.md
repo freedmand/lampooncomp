@@ -35,6 +35,10 @@ Future consideration
 --------------------
 There is still much work to be done. Going forward, I would like to interact with more preexisting systems such as Drupal and Bootstrap. The primary motivation for reinventing the wheel as I have done so thoroughly in some instances in this project was to have the most control over the security and design features and remain uncorrupted by laziness sourced from external modules. Overall, this entire project has been a fantastic learning experience.
 
+How to work the site
+--------------------
+Try registering for an account and fool around. An admin account can be used - email: lampoonadmin@mailinator.com, password: admin. Once you log in, you can go to the account page and grant admin privileges to additional users.
+
 The Github repo can be found here: https://github.com/freedmand/lampooncomp
 And the project is live online at: freedmand.com/lampooncomp/
 

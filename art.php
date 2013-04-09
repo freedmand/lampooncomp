@@ -21,14 +21,14 @@
 <body class="form">
 	<?php include 'compheader.php'; ?>
 	
-	<div id="title-row" class="form-row" style="margin-top: 48px; display: none;">
+	<div id="title-row" class="form-row vspace" style="display: none;">
 		<span class="form-label form-placeholder">Title:</span><input class="form-input" type="text" name="ftitle"><span class="form-placeholder"></span>
 	</div>
 	<h2 id="header-holder">Click below to submit an art piece.</h2>
 	<button class="orange-button form-button" id="upload-content">Upload</button></div>
 	<div id="img-container">
 		<span id="img-loader"></span>
-		<img id="img-preview" style="visibility: hidden;"></img>
+		<img id="img-preview" class="img-preview" style="visibility: hidden;"></img>
 	</div>
 	<input type="file" id="file-upload" name="file" style="visibility:hidden;" onchange="uploadFile(this);">
 </body>

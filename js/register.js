@@ -148,9 +148,6 @@ function showValidation(data)
 		return;
 	}
 	
-	// $.removeCookie('reg_email', { path: '/' });
-	// $.cookie('reg_email', $('[name="femail"]').val(), { path: '/' });
-	
 	window.location = "validate.html";
 }
 
@@ -164,7 +161,6 @@ function resendEmail()
 	}
 	
 	$.post('validate.php', {
-		// 'email': email,
 		'type': 'resend'
 	}).done(function () { location.reload(); });
 }
@@ -205,9 +201,6 @@ function validateFinal(data)
 		return;
 	}
 	
-	// $.removeCookie('reg_val', { path: '/' });
-	// $.cookie('reg_val', $('[name="fvalidation"]').val().toLowerCase(), { path: '/' });
-	
 	window.location = "createaccount.html";
 }
 
@@ -243,14 +236,6 @@ function finish()
 		return;
 	}
 	var board = selectedButton[0].name;
-	
-	// var validation = $.cookie('reg_val');
-	// var email = $.cookie('reg_email');
-	// if (validation === undefined || email === undefined)
-	// {
-	// 	showError('Please enable cookies and try again.');
-	// 	return;
-	// }
 	
 	$.post('validate.php', {
 		'board': board,

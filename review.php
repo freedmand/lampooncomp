@@ -107,7 +107,7 @@
 			return $result;
 		}
 	?>
-	<title>Portfolio</title>
+	<title>Review</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" type="text/css" href="css/comp.css">
 	<link rel="stylesheet" type="text/css" href="css/fonts.css">
@@ -119,9 +119,6 @@
 <body class="portfolio">
 	<?php include 'compheader.php'; ?>
 	<div class="content" style="padding-top: 40px;">
-		<button class="compact-button orange-button" style="margin-bottom: 20px;" onclick=<?php echo '"submitPiece(this, \'' . $board. '\');"'?>>
-			Submit piece
-		</button>
 <?php
 error_reporting(E_ERROR | E_PARSE);
 
@@ -131,16 +128,23 @@ $mysqli = new mysqli("localhost", "root", "root", "lampooncomp");
 if (mysqli_connect_errno())
 	exit('error');
 
-if (!$result = $mysqli->query("SELECT article_id, title, istext, path FROM articles WHERE id='$id' AND path IS NOT NULL AND title IS NOT NULL ORDER BY article_id_incr DESC LIMIT 10"))
+if (!$result = $mysqli->query("SELECT id, article_id, title, istext, path FROM articles WHERE path IS NOT NULL AND title IS NOT NULL ORDER BY article_id_incr DESC LIMIT 10"))
 	exit('error');
 
 $num_rows = $result->num_rows;
-
 
 for ($i = 0; $i < $num_rows; $i++)
 {
 	$row = $result->fetch_assoc();
 	
+	$id = $row['id'];
+	
+	if (!$result2 = $mysqli->query("SELECT name FROM users WHERE id='$id'"))
+		exit('error');
+	if ($result2->num_rows == 0)
+		exit('error');
+	$row2 = $result2->fetch_assoc();			
+	$author_name = $row2['name'];
 	$article_id = $row['article_id'];
 	$title = $row['title'];
 	$path = $row['path'];
@@ -150,7 +154,7 @@ for ($i = 0; $i < $num_rows; $i++)
 	{
 		$html = stripcslashes(file_get_contents($path));
 		echo '<div class="entry">';
-		echo '	<a class="title-list" href="editor.php?articleid=' . $article_id . '">' . $title . '</a><br><span class="author-list">By ' . $name . '</span>';
+		echo '	<a class="title-list" href="editor.php?articleid=' . $article_id . '">' . $title . '</a><br><span class="author-list">By ' . $author_name . '</span>';
 		echo '	<div class="sample-text">';
 		echo html_cut($html, 300) . '...';
 		echo ' <a class="title-list" style="font-size: 1em;" href="editor.php?articleid=' . $article_id . '">Continue</a>';

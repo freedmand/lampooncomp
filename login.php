@@ -14,7 +14,7 @@ try
 	$email = $mysqli->real_escape_string($_POST["email"]);
 	$password = md5($mysqli->real_escape_string($_POST["password"]));
 
-	if (!$result = $mysqli->query("SELECT id, name, board FROM users WHERE email='$email' AND passwordhash='$password' AND registered='1'"))
+	if (!$result = $mysqli->query("SELECT id, name, board, director FROM users WHERE email='$email' AND passwordhash='$password' AND registered='1'"))
 		exit('error');
 
 	if ($result->num_rows == 0)
@@ -24,11 +24,13 @@ try
 	$id = $row["id"];
 	$name = $row["name"];
 	$board = $row["board"];
+	$director = $row["director"];
 	
 	$_SESSION['id'] = $id;
 	$_SESSION['email'] = $email;
 	$_SESSION['name'] = $name;
 	$_SESSION['board'] = $board;
+	$_SESSION['director'] = $director;
 	
 	issueNewCookie($mysqli,$id);
 	

@@ -12,12 +12,6 @@
 	
 	<script>
 	$(document).ready(function() {
-		// $("#thatimg").click(function(e)
-		// {
-			// var offset = $(this).offset();
-			// var coord = '' + (e.pageX - offset.left) + ', ' + (e.pageY - offset.top);
-			// console.log(coord);
-		// });
 		$("#thatimg").on('mousedown', function (e)
 		{
 			var offset = $(this).offset();
@@ -37,10 +31,6 @@
 			
 			console.log('down: ' + coord);
 		});
-		// $("#thatimg").on('mouseout', function (e)
-		// {
-		// 	$(this).removeData('coord');
-		// });
 		
 		$(document).on('mouseup', function (e)
 		{
@@ -76,10 +66,10 @@
 				var h = $(this).data('highlight');
 				if (h)
 				{
-					h.css('left', Math.min(oldcoord[0], coord[0]) + offset.left);
-					h.css('top', Math.min(oldcoord[1], coord[1]) + offset.top);
-					h.css('width', Math.abs(oldcoord[0] - coord[0]));
-					h.css('height', Math.abs(oldcoord[1] - coord[1]));
+					h.css('left', Math.min(oldcoord[0], coord[0]) + offset.left + 'px');
+					h.css('top', Math.min(oldcoord[1], coord[1]) + offset.top + 'px');
+					h.css('width', Math.abs(oldcoord[0] - coord[0]) + 'px');
+					h.css('height', Math.abs(oldcoord[1] - coord[1]) + 'px');
 				}
 				console.log('drag');
 			}

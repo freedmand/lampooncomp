@@ -22,7 +22,7 @@
 </head>
 <body class="form">
 	<?php include 'compheader.php'; ?>
-	<div class="content">
+	<div class="content" style="padding-top: 106px;">
 		<h1>Welcome, <?php echo $first?></h1>
 		<button class="form-button orange-button" onclick=<?php echo '"submitPiece(this, \'' . $board. '\');"'?>>
 			Submit piece

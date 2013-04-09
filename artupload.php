@@ -4,18 +4,18 @@
 	include 'hash.php';
 
 	ob_start();
-
+	
 	$FILES_DIR = "img/usr/";
 	if (!file_exists($FILES_DIR))
 	{
-		mkdir($FILES_DIR, 0777);
+		mkdir($FILES_DIR, 0755);
 	}
 	
 	// random seed values
-	$k1_id = 331719786;
-	$k2_id = 334803793;
-	$k3_id = 908798562;
-	$q_id = 1698931722;
+	$k1_id = 1750680230;
+	$k2_id = 2187714091;
+	$k3_id = 1575001739;
+	$q_id = 973325368;
 
 	$data = require('logincheck.php');
 	if ($data != 'true')
@@ -38,8 +38,8 @@
 
 	if (!$result = $mysqli->query("UPDATE articles SET article_id='$article_id', path='$path' WHERE article_id_incr='$article_id_incr'"))
 		exit('error');
-
+	
 	file_put_contents($path, file_get_contents("php://input"));
-	echo $article_id;
+	echo $article_id . ';' . $path;
 	ob_end_flush();
 ?>

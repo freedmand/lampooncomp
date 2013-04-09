@@ -51,7 +51,7 @@ function forceWelcome()
 
 function setSession($mysqli, $id)
 {
-	if (!$result = $mysqli->query("SELECT name, email, board FROM users WHERE id='$id'"))
+	if (!$result = $mysqli->query("SELECT name, email, board, director FROM users WHERE id='$id'"))
 		return false;
 	
 	if ($result->num_rows == 0)
@@ -61,11 +61,13 @@ function setSession($mysqli, $id)
 	$name = $row["name"];
 	$email = $row["email"];
 	$board = $row["board"];
+	$director = $row["director"];
 	
 	$_SESSION['id'] = $id;
 	$_SESSION['name'] = $name;
 	$_SESSION['email'] = $email;
 	$_SESSION['board'] = $board;
+	$_SESSION['director'] = $director;
 	
 	return true;
 }

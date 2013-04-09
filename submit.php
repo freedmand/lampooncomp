@@ -6,7 +6,7 @@ include 'hash.php';
 
 ob_start();
 
-$FILES_DIR = "/Users/freedmand/private/";
+$FILES_DIR = "../../private/";
 if (!file_exists($FILES_DIR))
 {
 	mkdir($FILES_DIR, 0777);
@@ -42,8 +42,8 @@ $path = $FILES_DIR . $article_id . ($istext == '1' ? '.html' : '.jpg');
 
 if (!$result = $mysqli->query("UPDATE articles SET article_id='$article_id', path='$path' WHERE article_id_incr='$article_id_incr'"))
 	exit('error');
-
-exit(file_put_contents($path, $data));
+file_put_contents($path, $data);
+exit('true');
 ob_end_flush();
 
 ?>

@@ -107,21 +107,18 @@
 			return $result;
 		}
 	?>
-	<title>Portfolio</title>
+	<title>Feedback</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="stylesheet" type="text/css" href="css/comp.css">
 	<link rel="stylesheet" type="text/css" href="css/fonts.css">
 	
 	<script src="js/jquery-1.8.3.js"></script>
 	<script src="js/jquery-ui.js"></script>
-	<script src="js/portfolio.js"></script>
 </head>
 <body class="portfolio">
 	<?php include 'compheader.php'; ?>
 	<div class="content" style="padding-top: 40px;">
-		<button class="compact-button orange-button" style="margin-bottom: 20px;" onclick=<?php echo '"submitPiece(this, \'' . $board. '\');"'?>>
-			Submit piece
-		</button>
+		<h2 style="margin-top:0; margin-bottom:20px;">The following articles have been reviewed:</h2>
 <?php
 error_reporting(E_ERROR | E_PARSE);
 
@@ -131,17 +128,37 @@ $mysqli = new mysqli("localhost", "root", "root", "lampooncomp");
 if (mysqli_connect_errno())
 	exit('error');
 
-if (!$result = $mysqli->query("SELECT article_id, title, istext, path FROM articles WHERE id='$id' AND path IS NOT NULL AND title IS NOT NULL ORDER BY article_id_incr DESC LIMIT 10"))
-	exit('error');
+if ($_SESSION['director'] == '1')
+{
+	if (!$result = $mysqli->query("SELECT article_id FROM feedback"))
+		exit('error');
+}
+else
+{
+	if (!$result = $mysqli->query("SELECT article_id FROM feedback WHERE id='$id'"))
+		exit('error');
+}
 
-$num_rows = $result->num_rows;
-
-
-for ($i = 0; $i < $num_rows; $i++)
+$article_ids = array();
+for ($i = 0; $i < $result->num_rows; $i++)
 {
 	$row = $result->fetch_assoc();
 	
 	$article_id = $row['article_id'];
+	$article_ids[] = $article_id;
+}
+
+$unique_articles = array_unique($article_ids);
+for ($i = 0; $i < count($unique_articles); $i++)
+{
+	$article_id = $unique_articles[$i];
+	if (!$result = $mysqli->query("SELECT title, istext, path FROM articles WHERE article_id='$article_id' AND path IS NOT NULL AND title IS NOT NULL"))
+		exit('error');
+	if ($result->num_rows == 0)
+		continue;
+	
+	$row = $result->fetch_assoc();
+	
 	$title = $row['title'];
 	$path = $row['path'];
 	$istext = $row["istext"];

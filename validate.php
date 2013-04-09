@@ -45,7 +45,7 @@ try
 		$html_msg = "<h1>Welcome to the Harvard Lampoon comp.</h1>Please click on the following link to verify your email address:<br><a href=\"$link\">$link</a><br><br>Alternatively, copy and paste the following verification code: $verification";
 		$text_msg = "Welcome to the Harvard Lampoon comp. Please visit the following link in your browser to verify your email address:\r\n$link\r\n\r\nAlternatively, enter in the following verification code: $verification";
 		
-		if (sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Please verify your email", $html_msg, $text_msg))
+		if (sendEmail("comp@freedmand.com", "LampoonComp", $email, "[LampoonComp] Please verify your email", $html_msg, $text_msg))
 			exit("Mail Sent.");
 		else
 			exit('error');
@@ -69,7 +69,7 @@ try
 		$html_msg = "<h1>Welcome to the Harvard Lampoon comp.</h1>Please click on the following link to verify your email address:<br><a href=\"$link\">$link</a><br><br>Alternatively, copy and paste the following verification code: $verification";
 		$text_msg = "Welcome to the Harvard Lampoon comp. Please visit the following link in your browser to verify your email address:\r\n$link\r\n\r\nAlternatively, enter in the following verification code: $verification";
 		
-		if (sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Please verify your email", $html_msg, $text_msg))
+		if (sendEmail("comp@freedmand.com", "LampoonComp", $email, "[LampoonComp] Please verify your email", $html_msg, $text_msg))
 			exit("Mail Sent.");
 		else
 			exit('error');
@@ -137,7 +137,7 @@ try
 		$html_msg = "<h1>We have reset your password.</h1>Your password is now $newpass. Please login with your new password and then change it under the account management page.";
 		$text_msg = "We have reset your password.<br><br>Your password is now $newpass. Please login with your new password and then change it under the account management page.";
 		
-		if (sendEmail("comp@freedmand.com", "LampoonComp", "freedmand@gmail.com", "[LampoonComp] Your password has been reset", $html_msg, $text_msg))
+		if (sendEmail("comp@freedmand.com", "LampoonComp", $email, "[LampoonComp] Your password has been reset", $html_msg, $text_msg))
 			exit("Mail Sent.");
 		else
 			exit('error');

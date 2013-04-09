@@ -14,6 +14,12 @@ body.form
 	margin-bottom: 50px;
 }
 
+body.portfolio
+{
+	background-color: #fdffc2;
+	margin-bottom: 50px;
+}
+
 h1
 {
 	font-family: 'museosans';
@@ -133,7 +139,16 @@ h3
 
 .entry
 {
-	margin-bottom: 1em;
+	margin-bottom: 2em;
+	width: 38em;
+	background: rgb(253, 255, 232);
+	border-radius: 12px;
+	padding-left: 3em;
+	padding-right: 3em;
+	padding-top: 2em;
+	padding-bottom: 0.25em;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .separator
@@ -230,15 +245,14 @@ h3
 
 .content
 {
-	position: absolute;
+	position: relative;
 	width: 1000px;
-	padding-top: 106px;
-	bottom: 0;
-	top: 181px;
+	padding-top: 70px;
 	color: #2b2330;
 	text-align: center;
 	left: 50%;
 	margin-left: -500px;
+	padding-bottom: 30px;
 	
 /*	position: relative;
 	width: 1000px;
@@ -255,35 +269,37 @@ h3
 
 .author-list
 {
-	font-size: 2em;
-	font-family: 'museosans';
-	color: orange;
+	font-size: 1em;
+	margin-top: 0.38em;
+	margin-bottom: 1.9em;
+	font-family: 'iridium';
+	text-transform: uppercase;
+	color: black;
 }
 
 .title-list
 {
-	font-size: 1.5em;
-	font-family: 'sourcesanspro';
+	font-size: 1.71em;
+	line-height: 1.33;
+	font-family: 'caslon';
 	letter-spacing: 0.04em;
 	color: #5a5a8b;
+	text-decoration: none;
 }
+.title-list:hover { text-decoration: underline; }
 
 .sample-text
 {
-	width: 33em;
-	background-color: rgb(255, 255, 255);
-	padding: 0.7em;
-	color: rgb(0, 0, 139);
-	border-style: solid;
+	color: rgb(23, 3, 53);
 	margin-top: 1em;
 	margin-bottom: 2em;
 	margin-left: auto;
 	margin-right: auto;
-	line-height: 1.5em;
-	border-radius: 10px;
+	line-height: 1.52em;
 	font-family: "times";
-	font-size: 1.2em;
-	border-color: #7f7fc4;
+	font-size: 1.31em;
+	text-align: left;
+	white-space: pre-wrap;
 }
 
 .form-header
@@ -327,6 +343,18 @@ h3
 	text-align: right;
 	color: #5c4074;
 	
+	margin-bottom: 0px;
+	border: 0px transparent;
+	border-bottom-width: 5px;
+}
+
+.sub-form-label
+{
+	vertical-align: middle;
+	font-family: 'sourcesanspro-bold';
+	font-size: 2.5em;
+	text-align: right;
+	color: #5e2404;
 	margin-bottom: 0px;
 	border: 0px transparent;
 	border-bottom-width: 5px;
@@ -425,14 +453,29 @@ button
 .panel
 {
 	padding-left: 60px;
+	margin-bottom: 13px;
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	display: inline-block;
+}
+
+.art-panel
+{
+	padding-left: 60px;
+	margin-bottom: 13px;
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	display: inline-block;
 }
 
 .paper-text
 {
-	font: 20px/1.5 'times', 'Times New Roman', sans-serif !important;
-/*	font-family: 'times', 'Times New Roman', sans-serif !important;
-	font-size: 1.44em !important;
-	line-height: 1.5 !important;*/
+/*	font: 20px/1.5 'times', 'Times New Roman', sans-serif !important;*/
+	font-family: 'times', 'Times New Roman', sans-serif !important;
+	font-size: 20px; /*!important;*/
+	line-height: 1.5 !important;
 }
 
 .paper-holder
@@ -442,7 +485,7 @@ button
 	border-radius: 8px;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
-	display: block;
+	display: inline-block;
 	width: 33em;
 	height: 45.6em; /*8.5x11 ratio*/
 	padding-top: 5em;
@@ -450,7 +493,6 @@ button
 	padding-right: 5em;
 	overflow: scroll;
 	background-color: white;
-	margin-left: 20px;
 	text-align:center;
 	margin-bottom: 2em;
 }
@@ -511,27 +553,48 @@ button
 	background-color: #ffd7a3;
 	cursor: pointer;
 }
+.comment-inline-hover { background-color: #ffaa3c; }
+
+.comment-inline-selected
+{
+	background-color: #ffad34;
+	color: rgb(13, 21, 53);
+}
 
 .comment-inactive
 {
-	background-color: rgb(223, 221, 236);
+	background-color: #dfddec;
 	padding: 5px;
 	font-family: sourcesanspro;
 	line-height: 1.2;
 	color: rgb(82, 82, 82);
 	margin: 5px;
 	border-radius: 4px;
+	cursor: pointer;
 }
 
 .comment-inactive:hover
 {
-	background-color: rgb(252, 177, 83);
+	background-color: #fcb153;
 	color: rgb(255, 255, 207);
+}
+.comment-inactive-hover { background-color: #fcb153; color: rgb(255, 255, 207); }
+
+.comment-focus
+{
+	background-color: #fcb153;
+}
+
+.feedback-text
+{
+	width: 215px;
+	margin-right: 2px;
+	resize: none;
+	vertical-align: top;
 }
 
 .comment-pane
 {
-	height: 100%;
 	vertical-align: top;
 	width: 300px;
 	display: inline-block;
@@ -539,6 +602,28 @@ button
 	padding: 0;
 	padding-bottom: 16px;
 	border-radius: 16px;
+	text-align: left;
+	
+	margin-left: -280px;
+	position: fixed;
+	top: 123px;
+	bottom: 70px;
+}
+
+.comment-content
+{
+	overflow: scroll;
+	position: absolute;
+	top: 62px;
+	bottom: 10px;
+	left: 0px;
+	right: 0px;
+	height: auto;
+}
+
+.comment-author
+{
+	color: #531aa8;
 }
 
 .pane-header
@@ -576,6 +661,42 @@ button
 	vertical-align: middle;
 }
 
+.wide-formatting-button
+{
+	width: 100px;
+	border-radius: 8px;
+}
+
+.comment-button
+{
+	font-size: 1em;
+	width: 25px;
+	height: 25px;
+	margin-left: 3px;
+	color: white;
+	text-align: center;
+	padding: 0px;
+	border-radius: 13px;
+	background-color: #757575;
+	vertical-align: top;
+}
+.comment-button:hover { background-color: #959595; }
+.comment-button:active { background-color: #595959; }
+
+.comment-button-small
+{
+	float: right;
+	background: transparent;
+	color: black;
+	height: 21px;
+	width: 21px;
+	vertical-align: top;
+	margin-top: -2px;
+	margin-right: -2px;
+}
+.comment-button-small:hover { background: #7a7a7a; color: white; }
+/*.comment-button:active { background-color: #595959; }*/
+
 .inactive-button { background-color: #dfddec; }
 .inactive-button:hover { background-color: #ebeafd; }
 .inactive-button:active { background-color: #fccc91; }
@@ -605,19 +726,78 @@ button
 	border-radius: 8px;
 }
 
-#img-preview
+.img-preview
 {
 	max-width: 500px;
 	max-height: 500px;
-	border: solid 5px #3f2b50;
+	border: solid 30px #fdffe8;
+	border-radius: 8px;
+}
+
+.img-full
+{
+	max-width: 60%;
+	border: solid 30px #fdffe8;
 	border-radius: 8px;
 }
 
 #img-loader
 {
 	position: absolute;
-	border-radius: 8px;
+	border-top-left-radius: 8px;
+	border-bottom-left-radius: 8px;
 	background: rgba(54,10,54,0.85);
+}
+
+.art-span
+{
+	vertical-align: middle;
+}
+
+.art-title
+{
+	font-family: 'museosans';
+	font-size: 2.5em;
+	color: #2d1c47;
+	line-height: 1em;
+}
+
+.art-comment
+{
+	position: absolute;
+	background-color: rgba(255, 255, 0, 0.2);
+	border: solid;
+	cursor: pointer;
+}
+.art-comment:hover { background-color: rgba(251, 134, 0, 0.5); }
+
+.vspace
+{
+	margin-top: 48px;
+}
+
+.settings-panel
+{
+	background: #ffefdd;
+	width: 78%;
+	margin-left: auto;
+	margin-right: auto;
+	border-radius: 12px;
+	padding: 10px;
+	margin-bottom: 50px;
+	text-align: right;
+}
+
+.account-button
+{
+	position: absolute;
+	font-size: 2em;
+	width: 50px;
+	height: 50px;
+	margin-left: -55px;
+	border-radius: 25px;
+	vertical-align: top;
+	margin-top: 5px;
 }
 
 input, textarea { font-family:inherit; font-size: inherit; line-height: inherit; }

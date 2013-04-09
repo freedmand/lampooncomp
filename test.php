@@ -66,10 +66,6 @@ $verify_id = aura($id_incr, $width, $height, $k1_v, $k2_v, $k3_v, $q_v);
 
 $result = $mysqli->query("UPDATE users SET id='$id', verify_id='$verify_id' WHERE id_incr='$id_incr'");
 
-// $result = $mysqli->query("SELECT COUNT(*) FROM users");
-// $row = $result->fetch_assoc();
-// echo intval($row["COUNT(*)"]);
-
 $subject = "Lampoon Comp Verification";
 $message = "Hello! Your verification code is " . $verify_id . ".";
 $from = "comp@freedmand.com";
